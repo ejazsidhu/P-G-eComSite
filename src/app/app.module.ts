@@ -8,6 +8,7 @@ import {MatCardModule} from '@angular/material/card';
 import 'hammerjs';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import{HttpModule} from '@angular/http'
 
 BrowserModule
 
@@ -18,6 +19,7 @@ BrowserModule
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AppRoutingModule,
     NgbModule,
     MatCardModule,
