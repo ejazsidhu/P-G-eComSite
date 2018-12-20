@@ -12,7 +12,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import {CalendarModule} from 'primeng/calendar';
+import {AccordionModule} from 'primeng/accordion';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatButtonModule,
     MultiSelectModule,
     DropdownModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CalendarModule,
+    AccordionModule
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent]
 })

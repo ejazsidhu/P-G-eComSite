@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-3">
     <div class="col text-center">
-      <i class="fa fa-spinner fa-spin fa-4x" style="color:blue" *ngIf="allData.length==0"></i>
+      <i class="fa fa-spinner fa-spin fa-2x" style="color:lightskyblue" *ngIf="allData.length==0"></i>
 
     </div>
   </div>
@@ -13,26 +13,44 @@
   </div>
   <div class="row mt-3">
     <div class="col-2 text-center">
-      <div class="card" style="width:12rem">
+      <div class="card" style="width:13rem">
         <div class="body mt-1 ">
           <h3>Search here</h3>
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [style]="{'width':'150px'}" autoWidth=true editable="true"
-            placeholder="Select a Brand"></p-dropdown>
-          <p>Selected value: {{selectedCity || 'none'}}</p>
-          <hr>
-          <!-- <h3>City list</h3> -->
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'width':'150px'}" autoWidth=true
-            editable="true" placeholder="Select a Brand"></p-dropdown>
-          <p>Selected value: {{selectedCity1 || 'none'}}</p>
-          <hr>
-          <!-- <h3>City list</h3> -->
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [style]="{'width':'150px'}" autoWidth=true
-            editable="true" placeholder="Select a Brand"></p-dropdown>
-          <p>Selected value: {{selectedCity2 || 'none'}}</p>
-          <hr>
 
-          <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
-          <p>Selected value: {{selectedCars1}}</p>
+          <hr>
+          <h5>Date Range</h5>
+          <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" selectionMode="range" [readonlyInput]="true" [style]="{'max-width':'180px'}"></p-calendar>
+          <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
+          <hr>
+          <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [style]="{'max-width':'180px'}" autoWidth=true editable="true"
+            placeholder="Select a Brand"></p-dropdown>
+          <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
+          <hr>
+          <!-- <h3>City list</h3> -->
+          <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'max-width':'180px'}" autoWidth=true
+            editable="true" placeholder="Select a Brand"></p-dropdown>
+          <!-- <p>Selected value: {{selectedCity1 || 'none'}}</p> -->
+          <hr>
+          <!-- <h3>City list</h3> -->
+          <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [style]="{'max-width':'180px'}" autoWidth=true
+            editable="true" placeholder="Select a Brand"></p-dropdown>
+          <!-- <p>Selected value: {{selectedCity2 || 'none'}}</p> -->
+          <hr>
+          <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [style]="{'max-width':'180px'}"></p-multiSelect>
+          <!-- <p>Selected value: {{selectedCars1}}</p> -->
+          <hr>
+          <p-accordion class="text-center">
+            <p-accordionTab header="advance serach">
+                <p-dropdown [options]="cities" [(ngModel)]="selectedCity"  [style]="{'padding':'5px'}"  editable="true"
+                placeholder="Select a Brand"></p-dropdown>
+              <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
+              <hr>
+              <!-- <h3>City list</h3> -->
+              <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'padding':'5px'}"                editable="true" placeholder="Select a Brand"></p-dropdown>
+              <!-- <p>Selected value: {{selectedCity1 || 'none'}}</p> -->
+           
+            </p-accordionTab>
+          </p-accordion>
         </div>
       </div>
     </div>

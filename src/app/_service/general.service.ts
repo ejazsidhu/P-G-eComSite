@@ -21,4 +21,16 @@ export class GeneralService {
       response => response.json()
     );
   }
+
+  public getDataByDateRange(body){
+
+    let url='http://pg.rtdtradetracker.com/ClientshopFacia';
+    // let httpOption = this.headerCTJson();
+    // const option = new RequestOptions({ headers: httpOption });
+    return this.http.post(url,body).map(
+      response => response.json()
+    );
+
+
+  }
 }

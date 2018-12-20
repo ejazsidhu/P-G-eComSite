@@ -9,6 +9,7 @@ import 'hammerjs';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import{HttpModule} from '@angular/http'
+import { FormsModule } from '@angular/forms';
 
 BrowserModule
 
@@ -20,6 +21,7 @@ BrowserModule
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
     MatCardModule,

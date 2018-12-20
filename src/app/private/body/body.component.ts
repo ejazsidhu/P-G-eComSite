@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/_service/general.service';
 import { environment } from 'src/environments/environment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-body',
@@ -19,10 +20,11 @@ export class BodyComponent implements OnInit {
   selectedCity1 = 'NY';
   selectedCity2 = 'NY';
   selectedCars1 = 'Audi;'
-  p:number=1;
-  d:number=1;
-  public ip=environment.ip;
-
+  p: number = 1;
+  d: number = 1;
+  public filterModel: any = {};
+  public ip = environment.ip;
+  rangeDates: any;
 
 
   constructor(private generalService: GeneralService) {
@@ -48,6 +50,20 @@ export class BodyComponent implements OnInit {
     ];
   }
 
+
+  dateRangeChange() {
+    if(this.rangeDates[1]!=null)
+    {
+      console.log('date range : ', this.rangeDates);
+      var s=moment(this.rangeDates[0]).format('YYYY-MM-DD');
+      var e=moment(this.rangeDates[0]).format('YYYY-MM-DD');
+
+    }
+
+
+    
+
+  }
   ngOnInit() {
     this.getData()
   }
@@ -56,8 +72,7 @@ export class BodyComponent implements OnInit {
   getData() {
     this.generalService.getData().subscribe(data => {
       this.allData = data;
-      console.log(this.allData)
-
+      // console.log(this.allData)
     }, error => {
 
     });
