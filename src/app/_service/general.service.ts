@@ -22,12 +22,14 @@ export class GeneralService {
     );
   }
 
-  public getDataByDateRange(body){
+  public getDataByDateRange(){
 
-    let url='http://pg.rtdtradetracker.com/ClientshopFacia';
+    let b=JSON.stringify({startDate:"2018-12-19",endDate:"2018-12-19"});
+
+    let url='http://pg.rtdtradetracker.com/clientShopFacia';
     // let httpOption = this.headerCTJson();
     // const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,body).map(
+    return this.http.post(url,b).map(
       response => response.json()
     );
 

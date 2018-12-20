@@ -3,6 +3,11 @@
     /* max-height: 400px */
   }
 
+  #inf.mat-card-image{
+    height: 195px !important;
+    
+  }
+
   .ui-dropdown{
     width: 300px
   }

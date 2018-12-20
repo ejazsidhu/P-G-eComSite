@@ -70,9 +70,9 @@ export class BodyComponent implements OnInit {
 
 
   getData() {
-    this.generalService.getData().subscribe(data => {
+    this.generalService.getDataByDateRange().subscribe(data => {
       this.allData = data;
-      // console.log(this.allData)
+      console.log(this.allData)
     }, error => {
 
     });
