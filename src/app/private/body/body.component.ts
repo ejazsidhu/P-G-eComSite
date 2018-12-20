@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/_service/general.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-body',
@@ -18,6 +19,9 @@ export class BodyComponent implements OnInit {
   selectedCity1 = 'NY';
   selectedCity2 = 'NY';
   selectedCars1 = 'Audi;'
+  p:number=1;
+  d:number=1;
+  public ip=environment.ip;
 
 
 

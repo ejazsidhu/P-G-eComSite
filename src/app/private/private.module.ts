@@ -10,7 +10,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {FormsModule} from '@angular/forms'
     MatCardModule,
     MatButtonModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    NgxPaginationModule
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent]
 })
