@@ -1,3 +1,38 @@
-<p>
-  login works!
-</p>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/images/pngLogo.png" id="icon" alt="User Icon" />
+      <h1>P&G Portal</h1>
+    </div>
+
+    <!-- Login Form -->
+
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit">
+      <input [formControl]="userName" type="text" id="userName" class="fadeIn second" name="userName" placeholder="username">
+      <br>
+      <span *ngIf="!userName.valid && userName.touched " class="alert-danger mt-1 mb-1">User name must be greater than 4 charaters</span>
+      <br>
+
+      <input [formControl]="password" type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      <br>
+      <span *ngIf="!password.valid && password.touched " class="alert-danger mt-1 mb-1"> Password field can't empty.
+      </span>
+      <br>
+
+
+
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <!-- <div id="formFooter">
+      <a class="underlineHover" href="#">Go to the Site</a>
+    </div> -->
+
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/_service/general.service';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-body',
@@ -11,23 +12,40 @@ import * as moment from 'moment';
 export class BodyComponent implements OnInit {
 
   public allData: any = [];
+  public searchFilter='';
 
 
   cities: { label: string; value: string; }[];
-  cars: { label: string; value: string; }[];
+  cars:any=[];
 
-  selectedCity = 'NY';
-  selectedCity1 = 'NY';
-  selectedCity2 = 'NY';
-  selectedCars1 = 'Audi;'
+  selectedCity = '';
+  selectedCity1 = '';
+  selectedCity2 = '';
+  selectedCars1 = [];
   p: number = 1;
   d: number = 1;
   public filterModel: any = {};
   public ip = environment.ip;
   rangeDates: any;
+  range:any;
+  filterProducts: any;
 
 
-  constructor(private generalService: GeneralService) {
+  constructor(private route:ActivatedRoute,private generalService: GeneralService) {
+    // console.log(this.selectedCars1);
+
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params.get('category'));
+      console.log(params.get('category2'));
+      
+      let s = params.get('category');
+      this.filterProducts = (this.allData) ?
+        this.allData.filter(c => c.category === s) : this.allData = this.allData;
+    });
+ 
+
+
+    
     this.cities = [
       { label: 'New York', value: 'NY' },
       { label: 'Rome', value: 'RM' },
@@ -50,13 +68,24 @@ export class BodyComponent implements OnInit {
     ];
   }
 
+  ngOnInit() {
+    var d=new Date();
+    var s=moment(d).subtract(5,'day').format('YYYY-MM-DD');
+    var e=moment(d).subtract(1,'day').format('YYYY-MM-DD');
+    this.range= JSON.stringify({startDate:s,endDate:e});
+    console.log('contructor date range',this.range);
+    this.getData(this.range)
+  }
+
 
   dateRangeChange() {
     if(this.rangeDates[1]!=null)
     {
-      console.log('date range : ', this.rangeDates);
       var s=moment(this.rangeDates[0]).format('YYYY-MM-DD');
-      var e=moment(this.rangeDates[0]).format('YYYY-MM-DD');
+      var e=moment(this.rangeDates[0]).subtract(1,'day').format('YYYY-MM-DD');
+
+      console.log('date range : ', s,e);
+
 
     }
 
@@ -64,13 +93,11 @@ export class BodyComponent implements OnInit {
     
 
   }
-  ngOnInit() {
-    this.getData()
-  }
+  
 
 
-  getData() {
-    this.generalService.getDataByDateRange().subscribe(data => {
+  getData(range) {
+    this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
       console.log(this.allData)
     }, error => {

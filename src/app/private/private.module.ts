@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CalendarModule} from 'primeng/calendar';
 import {AccordionModule} from 'primeng/accordion';
+import { Ng2SearchPipeModule } from 'ng2-search-filter'
 @NgModule({
   imports: [
     CommonModule,
@@ -26,7 +27,8 @@ import {AccordionModule} from 'primeng/accordion';
     DropdownModule,
     NgxPaginationModule,
     CalendarModule,
-    AccordionModule
+    AccordionModule,
+    Ng2SearchPipeModule
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent]
 })
