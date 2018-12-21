@@ -12,11 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 export class BodyComponent implements OnInit {
 
   public allData: any = [];
-  public searchFilter='';
+  public searchFilter = '';
 
 
   cities: { label: string; value: string; }[];
-  cars:any=[];
+  cars: any = [];
 
   selectedCity = '';
   selectedCity1 = '';
@@ -27,25 +27,22 @@ export class BodyComponent implements OnInit {
   public filterModel: any = {};
   public ip = environment.ip;
   rangeDates: any;
-  range:any;
+  range: any;
   filterProducts: any;
 
 
-  constructor(private route:ActivatedRoute,private generalService: GeneralService) {
+  constructor(private route: ActivatedRoute, private generalService: GeneralService) {
     // console.log(this.selectedCars1);
 
     this.route.queryParamMap.subscribe(params => {
       console.log(params.get('category'));
       console.log(params.get('category2'));
-      
+
       let s = params.get('category');
       this.filterProducts = (this.allData) ?
         this.allData.filter(c => c.category === s) : this.allData = this.allData;
     });
- 
 
-
-    
     this.cities = [
       { label: 'New York', value: 'NY' },
       { label: 'Rome', value: 'RM' },
@@ -69,31 +66,34 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit() {
-    var d=new Date();
-    var s=moment(d).subtract(5,'day').format('YYYY-MM-DD');
-    var e=moment(d).subtract(1,'day').format('YYYY-MM-DD');
-    this.range= JSON.stringify({startDate:s,endDate:e});
-    console.log('contructor date range',this.range);
-    this.getData(this.range)
+    var d = new Date();
+    var s = moment(d).subtract(5, 'day').format('YYYY-MM-DD');
+    var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
+    this.range = JSON.stringify({ startDate: s, endDate: e });
+    console.log('contructor date range', this.range);
+    this.getData(this.range);
+    this.range = JSON.parse(this.range)
   }
 
 
   dateRangeChange() {
-    if(this.rangeDates[1]!=null)
-    {
-      var s=moment(this.rangeDates[0]).format('YYYY-MM-DD');
-      var e=moment(this.rangeDates[0]).subtract(1,'day').format('YYYY-MM-DD');
+    if (this.rangeDates[1] != null) {
+      var s = moment(this.rangeDates[0]).format('YYYY-MM-DD');
+      var e = moment(this.rangeDates[0]).subtract(1, 'day').format('YYYY-MM-DD');
 
-      console.log('date range : ', s,e);
+      this.range = JSON.stringify({ startDate: s, endDate: e });
+      console.log('contructor date range', this.range);
+      this.getData(this.range);
+      this.range = JSON.parse(this.range)
 
 
     }
 
 
-    
+
 
   }
-  
+
 
 
   getData(range) {
