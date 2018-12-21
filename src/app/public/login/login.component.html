@@ -10,9 +10,15 @@
 
     <!-- Login Form -->
 
+    <div *ngIf="errorTrigger" class="alert alert-danger">
+        <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+        <i class="fa fa-warning fa-fw"></i>
+        <strong>{{myMessage}}</strong>
+      </div>
 
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
       <input [formControl]="userName" type="text" id="userName" class="fadeIn second" name="userName" placeholder="username">
       <br>
       <span *ngIf="!userName.valid && userName.touched " class="alert-danger mt-1 mb-1">User name must be greater than 4 charaters</span>
@@ -26,7 +32,7 @@
 
 
 
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input [disabled]="form.invalid" type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
     <!-- Remind Passowrd -->

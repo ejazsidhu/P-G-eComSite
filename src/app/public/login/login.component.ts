@@ -43,15 +43,20 @@ export class LoginComponent implements OnInit {
         role: 'admin'
       }
       localStorage.setItem("Authorized", JSON.stringify(obj));
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['home']);
 
     }
     
 
-    else if (m.email != "admin@png.com" || m.password != 'admin') {
+    else if (m.userName != "admin@png.com" || m.password != 'admin') {
       localStorage.clear()
-      this.myMessage = 'username OR password is invalid.';
+      this.myMessage = 'Username OR password is invalid.';
       this.errorTrigger = true;
+
+      setTimeout(() => {
+        this.errorTrigger=false;
+        
+      }, 3000);
 
     }
 
