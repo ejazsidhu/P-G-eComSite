@@ -18,7 +18,7 @@ export class BodyComponent implements OnInit {
   categories: any[];
   cars: any = [];
 
-  selectedCategory = '';
+  selectedCategory = [];
   selectedCity1 = '';
   selectedCity2 = '';
   selectedCars1 = [];
@@ -86,7 +86,7 @@ export class BodyComponent implements OnInit {
     this.selelctedShop = shop;
     let filterData: any = [];
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
-    console.log("shopes",filterData)
+    console.log("shopes", filterData)
     if (filterData.length > 0)
       this.allData = filterData;
   }
@@ -108,23 +108,41 @@ export class BodyComponent implements OnInit {
   }
 
   categoryChange() {
-    console.log(this.selectedCategory)
-    // this.getData(this.range);
+    console.log(this.selectedCategory);
     this.allData = [];
     this.allData = this.allDataClone;
-    var str: string = this.selectedCategory
-
     let filterData: any = [];
-    filterData = this.allData.filter(d => d.assetName === str && d.imageType === 'Primary');
-    // console.log(filterData)
-    if (filterData.length > 0)
-      this.allData = filterData;
+    let i = 0
+    this.selectedCategory.forEach(e => {
+      var ft = this.allData.filter(d => d.assetName === e && d.imageType === 'Primary');
+      filterData.push(ft)
+
+    });
+    if (filterData[2]) {
+      this.allData = filterData[0].concat(filterData[1]).concat(filterData[2]);
+      console.log("triple filter list", this.allData)
+
+    }
+    else if (filterData[1]) {
+      this.allData = filterData[0].concat(filterData[1]);
+      console.log("double filter list", this.allData)
+
+
+    }
+    else if
+      (filterData[0]) {
+      this.allData = filterData[0];
+      console.log("single filter list", this.allData)
+
+
+    }
+
+
   }
 
-  getall()
-  {
-    this.allData=this.allDataClone;
-    this.singleShopSelected=false;
+  getall() {
+    this.allData = this.allDataClone;
+    this.singleShopSelected = false;
   }
 
 

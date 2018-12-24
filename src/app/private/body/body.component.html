@@ -19,16 +19,19 @@
 
           {{range.startDate}} -to- {{range.endDate}}
 
-          <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
-
+         <p class="text-center"> <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
+         </p>
           <hr>
           <h5>Date Range</h5>
           <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
             [readonlyInput]="true"></p-calendar>
           <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
           <hr>
-          <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}"
-            autoWidth=true editable="true" placeholder="Select a category"></p-dropdown>
+
+          <p-multiSelect [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'width':'13rem'}"></p-multiSelect>
+
+          <!-- <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}"
+            autoWidth=true editable="true" placeholder="Select a category"></p-dropdown> -->
 
           <!-- routerLink="/home/"
             [queryParams]="{category:selectedCity}" -->
