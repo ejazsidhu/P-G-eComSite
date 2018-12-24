@@ -19,18 +19,18 @@
 
           {{range.startDate}} -to- {{range.endDate}}
 
-          <!-- <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control"> -->
+          <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
 
           <hr>
           <h5>Date Range</h5>
-          <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range" [readonlyInput]="true"></p-calendar>
+          <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
+            [readonlyInput]="true"></p-calendar>
           <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
           <hr>
-          <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}" autoWidth=true editable="true"
-            placeholder="Select a category"            
-            ></p-dropdown>
+          <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}"
+            autoWidth=true editable="true" placeholder="Select a category"></p-dropdown>
 
-            <!-- routerLink="/home/"
+          <!-- routerLink="/home/"
             [queryParams]="{category:selectedCity}" -->
           <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
           <!-- <hr> -->
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="col ml-2 " *ngIf="allData.length>0 ">
-      <ng-container >
+      <ng-container>
         <!-- <div class="row">
           <div class="col-6">
             <table class="table">
@@ -87,20 +87,23 @@
               border: black 1px solid;  ">
           </div>
         </div> -->
-        <div class="row ">
+        <!--  -->
+        <div class="row " *ngIf="!singleShopSelected">
 
           <div class="col-4 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 9, currentPage: p }">
             <mat-card class="example-card">
-              <mat-card-header class="mb-1">
-                  <!--  -->
-                <div mat-card-avatar  class="example-header-image"      >
-                  <img src="{{ip}}{{product.shopImgURL}}" width="50" style=" border-radius:50%">
+              <mat-card-header class="mb-1" (click)="getShop(product)">
+                <!--  -->
+                <div mat-card-avatar class="example-header-image">
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                 </div>
-                <mat-card-title style="font-size:15px" title="{{product.shopName}}">{{product.shopName | slice:0:18 | titlecase}} </mat-card-title>
+                <mat-card-title style="font-size:15px;cursor: pointer;" title="{{product.shopName}}">{{product.shopName
+                  | slice:0:18 | titlecase}} </mat-card-title>
                 <mat-card-subtitle> </mat-card-subtitle>
               </mat-card-header>
               <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
-             <img *ngIf="product.assetImageURL==null;"  mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"  #noImageFound>
+              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                #noImageFound>
               <mat-card-content>
                 <table>
                   <tr *ngFor="let d of product.assetItemList ">
@@ -117,6 +120,32 @@
             </mat-card>
           </div>
 
+        </div>
+
+
+        <div class="row" *ngIf="singleShopSelected">
+          <button type="button" class="btn btn-large btn-block btn-primary" (click)="getall()">getAll</button>
+
+          <div class="col-6">
+              <table class="table">
+                  <tr *ngFor="let item of selelctedShop.itemList">
+                    <th>{{item.heading}}</th>
+                    <td>{{item.value}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a class="btn btn-link">More Details</a>
+                    </td>
+                    <td></td>
+                  </tr>
+                </table>
+
+          </div>
+          <div class="col-6">
+
+            <img src="{{ip}}{{selelctedShop.shopImgURL}}" width="400" alt="">
+
+          </div>
         </div>
       </ng-container>
 

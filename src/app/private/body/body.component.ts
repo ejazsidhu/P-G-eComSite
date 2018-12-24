@@ -13,7 +13,7 @@ export class BodyComponent implements OnInit {
 
   public allData: any = [];
   public searchFilter = '';
-
+  allDataClone;
 
   categories: any[];
   cars: any = [];
@@ -29,6 +29,8 @@ export class BodyComponent implements OnInit {
   rangeDates: any;
   range: any;
   filterProducts: any;
+  singleShopSelected: boolean = false;
+  selelctedShop: any = {};
 
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {
@@ -45,9 +47,9 @@ export class BodyComponent implements OnInit {
 
     this.categories = [
       { label: 'Gillette', value: 'Gillette' },
-      { label: 'Pharmacy Medium', value: 'Pharmacy Medium' },
+      // { label: 'Pharmacy Medium', value: 'Pharmacy Medium' },
       { label: 'Laundry', value: 'Laundry' },
-      { label: 'Medium', value: 'Medium' },
+      // { label: 'Medium', value: 'Medium' },
       { label: 'H&S', value: 'H&S' }
     ];
 
@@ -75,6 +77,20 @@ export class BodyComponent implements OnInit {
     this.range = JSON.parse(this.range)
   }
 
+  getShop(shop) {
+
+    console.log(shop);
+    this.allData = [];
+    this.allData = this.allDataClone;
+    this.singleShopSelected = true;
+    this.selelctedShop = shop;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.shopId === shop.shopId);
+    // console.log(filterData)
+    if (filterData.length > 0)
+      this.allData = filterData;
+  }
+
 
   dateRangeChange() {
     if (this.rangeDates[1] != null) {
@@ -88,20 +104,27 @@ export class BodyComponent implements OnInit {
 
 
     }
-    
+
   }
 
-  categoryChange(){
+  categoryChange() {
     console.log(this.selectedCategory)
     // this.getData(this.range);
-    
-    // this.selectedCategory
+    this.allData = [];
+    this.allData = this.allDataClone;
+    var str: string = this.selectedCategory
 
-    let filterData:any=[];
-    filterData=this.allData.filter(d=>d.assetName===this.selectedCategory && d.imageType==='Primary');
-    console.log(filterData)
-    if(filterData.length>0)
-    this.allData=filterData;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.assetName === str && d.imageType === 'Primary');
+    // console.log(filterData)
+    if (filterData.length > 0)
+      this.allData = filterData;
+  }
+
+  getall()
+  {
+    this.allData=this.allDataClone;
+    this.singleShopSelected=false;
   }
 
 
@@ -109,6 +132,7 @@ export class BodyComponent implements OnInit {
   getData(range) {
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
+      this.allDataClone = this.allData.slice();
       console.log(this.allData)
     }, error => {
 
