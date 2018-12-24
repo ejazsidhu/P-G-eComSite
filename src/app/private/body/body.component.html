@@ -26,41 +26,42 @@
           <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range" [readonlyInput]="true"></p-calendar>
           <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
           <hr>
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [style]="{'max-width':'180px'}" autoWidth=true editable="true"
-            placeholder="Select a CITY"
-            routerLink="/home/"
-            [queryParams]="{category:selectedCity}"
+          <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}" autoWidth=true editable="true"
+            placeholder="Select a category"            
             ></p-dropdown>
+
+            <!-- routerLink="/home/"
+            [queryParams]="{category:selectedCity}" -->
           <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
-          <hr>
+          <!-- <hr> -->
           <!-- <h3>City list</h3> -->
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'max-width':'180px'}" autoWidth=true
+          <!-- <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'max-width':'180px'}" autoWidth=true
             editable="true" placeholder="Select a REAGION"
             routerLink="/home/"
             [queryParams]="{category2:selectedCity1}"
-            ></p-dropdown>
+            ></p-dropdown> -->
           <!-- <p>Selected value: {{selectedCity1 || 'none'}}</p> -->
-          <hr>
+          <!-- <hr> -->
           <!-- <h3>City list</h3> -->
-          <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [style]="{'max-width':'180px'}" autoWidth=true
-            editable="true" placeholder="Select a Brand"></p-dropdown>
+          <!-- <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [style]="{'max-width':'180px'}" autoWidth=true
+            editable="true" placeholder="Select a Brand"></p-dropdown> -->
           <!-- <p>Selected value: {{selectedCity2 || 'none'}}</p> -->
-          <hr>
-          <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [style]="{'width':'13rem'}"></p-multiSelect>
+          <!-- <hr> -->
+          <!-- <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [style]="{'width':'13rem'}"></p-multiSelect> -->
           <!-- <p>Selected value: {{selectedCars1}}</p> -->
-          <hr>
-          <p-accordion class="text-center">
+          <!-- <hr> -->
+          <!-- <p-accordion class="text-center">
             <p-accordionTab header="advance serach">
                 <p-dropdown [options]="cities" [(ngModel)]="selectedCity"  [style]="{'padding':'5px'}"  editable="true"
                 placeholder="Select a Brand"></p-dropdown>
-              <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
+              <p>Selected value: {{selectedCity || 'none'}}</p>
               <hr>
-              <!-- <h3>City list</h3> -->
+              <h3>City list</h3>
               <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'padding':'5px'}"                editable="true" placeholder="Select a Brand"></p-dropdown>
-              <!-- <p>Selected value: {{selectedCity1 || 'none'}}</p> -->
+              <p>Selected value: {{selectedCity1 || 'none'}}</p>
            
             </p-accordionTab>
-          </p-accordion>
+          </p-accordion> -->
         </div>
       </div>
     </div>
@@ -91,7 +92,10 @@
           <div class="col-4 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 9, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1">
-                <div mat-card-avatar class="example-header-image"></div>
+                  <!--  -->
+                <div mat-card-avatar  class="example-header-image"      >
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" style=" border-radius:50%">
+                </div>
                 <mat-card-title style="font-size:15px" title="{{product.shopName}}">{{product.shopName | slice:0:18}} </mat-card-title>
                 <mat-card-subtitle> </mat-card-subtitle>
               </mat-card-header>

@@ -15,10 +15,10 @@ export class BodyComponent implements OnInit {
   public searchFilter = '';
 
 
-  cities: { label: string; value: string; }[];
+  categories: any[];
   cars: any = [];
 
-  selectedCity = '';
+  selectedCategory = '';
   selectedCity1 = '';
   selectedCity2 = '';
   selectedCars1 = [];
@@ -43,12 +43,12 @@ export class BodyComponent implements OnInit {
         this.allData.filter(c => c.category === s) : this.allData = this.allData;
     });
 
-    this.cities = [
-      { label: 'New York', value: 'NY' },
-      { label: 'Rome', value: 'RM' },
-      { label: 'London', value: 'LDN' },
-      { label: 'Istanbul', value: 'IST' },
-      { label: 'Paris', value: 'PRS' }
+    this.categories = [
+      { label: 'Gillette', value: 'Gillette' },
+      { label: 'Pharmacy Medium', value: 'Pharmacy Medium' },
+      { label: 'Laundry', value: 'Laundry' },
+      { label: 'Medium', value: 'Medium' },
+      { label: 'H&S', value: 'H&S' }
     ];
 
     this.cars = [
@@ -67,7 +67,7 @@ export class BodyComponent implements OnInit {
 
   ngOnInit() {
     var d = new Date();
-    var s = moment(d).subtract(5, 'day').format('YYYY-MM-DD');
+    var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     this.range = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date range', this.range);
@@ -88,10 +88,20 @@ export class BodyComponent implements OnInit {
 
 
     }
+    
+  }
 
+  categoryChange(){
+    console.log(this.selectedCategory)
+    // this.getData(this.range);
+    
+    // this.selectedCategory
 
-
-
+    let filterData:any=[];
+    filterData=this.allData.filter(d=>d.assetName===this.selectedCategory && d.imageType==='Primary');
+    console.log(filterData)
+    if(filterData.length>0)
+    this.allData=filterData;
   }
 
 
