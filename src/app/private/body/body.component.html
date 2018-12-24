@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div class="row mt-3" *ngIf="allData.length>0">
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
     <div class="col text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
@@ -124,21 +124,21 @@
 
 
         <div class="row" *ngIf="singleShopSelected">
-          <button type="button" class="btn btn-large btn-block btn-primary" (click)="getall()">getAll</button>
+          <button type="button" class="btn btn-large btn-block btn-primary mb-3" (click)="getall()">getAll</button>
 
           <div class="col-6">
-              <table class="table">
-                  <tr *ngFor="let item of selelctedShop.itemList">
-                    <th>{{item.heading}}</th>
-                    <td>{{item.value}}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a class="btn btn-link">More Details</a>
-                    </td>
-                    <td></td>
-                  </tr>
-                </table>
+            <table class="table">
+              <tr *ngFor="let item of selelctedShop.itemList">
+                <th>{{item.heading}}</th>
+                <td>{{item.value}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="btn btn-link">More Details</a>
+                </td>
+                <td></td>
+              </tr>
+            </table>
 
           </div>
           <div class="col-6">
@@ -146,7 +146,44 @@
             <img src="{{ip}}{{selelctedShop.shopImgURL}}" width="400" alt="">
 
           </div>
+          <!-- <div class="row">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+</div> -->
+          
         </div>
+
+        <div class="row" *ngIf="singleShopSelected">
+            <div class="col-4 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
+              <mat-card class="example-card">
+                <mat-card-header class="mb-1" (click)="getShop(product)">
+                  <!--  -->
+                  <div mat-card-avatar class="example-header-image">
+                    <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
+                  </div>
+                  <mat-card-title style="font-size:15px;cursor: pointer;" title="{{product.shopName}}">{{product.shopName
+                    | slice:0:18 | titlecase}} </mat-card-title>
+                  <mat-card-subtitle> </mat-card-subtitle>
+                </mat-card-header>
+                <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+                <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                  #noImageFound>
+                <mat-card-content>
+                  <table>
+                    <tr *ngFor="let d of product.assetItemList ">
+                      <th>{{d.heading}}:</th>
+                      <td style="font-size:10px">{{d.value}}</td>
+                    </tr>
+
+                  </table>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button>Details</button>
+                  <!-- <button mat-button>SHARE</button> -->
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
       </ng-container>
 
     </div>

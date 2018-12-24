@@ -86,7 +86,7 @@ export class BodyComponent implements OnInit {
     this.selelctedShop = shop;
     let filterData: any = [];
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
-    // console.log(filterData)
+    console.log("shopes",filterData)
     if (filterData.length > 0)
       this.allData = filterData;
   }
