@@ -19,9 +19,9 @@
 
           {{range.startDate}} -to- {{range.endDate}}
 
-         <p class="text-center"> <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
-         </p>
-          <hr>
+         <!-- <p class="text-center"> <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
+         </p> -->
+          <hr> 
           <h5>Date Range</h5>
           <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
             [readonlyInput]="true"></p-calendar>

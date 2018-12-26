@@ -10,12 +10,14 @@ import 'hammerjs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import{HttpModule} from '@angular/http'
 import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
 
 BrowserModule
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent
     
   ],
   imports: [

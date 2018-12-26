@@ -11,7 +11,9 @@
   .ui-dropdown{
     width: 300px
   }
-  
+  .ui-datepicker-trigger{
+height: 34px !important;
+  }
 
   .mat-card-image img{
 max-height: 200px !important;
