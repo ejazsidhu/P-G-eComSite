@@ -7,7 +7,17 @@ import 'rxjs/add/operator/map';
 })
 export class GeneralService {
 
-  constructor(private http: Http) { }
+  isUserExist=false;
+
+  constructor(private http: Http) {
+
+    let user=localStorage.getItem('Authorized');
+    if(user){
+      this.isUserExist=true;
+    }
+
+
+   }
   headerCTJson() {
     let header = new Headers({ 'content-type': 'application/json' });
     return header;

@@ -9,7 +9,7 @@ import { GeneralService } from 'src/app/_service/general.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   changeClass = false;
   public form: FormGroup;
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   errorTrigger = false;
 
   constructor(private generalService: GeneralService, private fb: FormBuilder, private router: Router) {
+    localStorage.clear();
 
     this.form = this.fb.group({
       'userName': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -50,49 +51,12 @@ export class LoginComponent implements OnInit {
       this.myMessage = er.description//'Username OR password is invalid.';
       this.errorTrigger = true;
       this.changeClass=false;
-
-
       setTimeout(() => {
         this.errorTrigger = false;
 
       }, 3000);
 
     })
-
-
-
-    // if (m.userName == "admin@png.com" && m.password == 'admin') {
-    //   localStorage.clear()
-    //   let obj: any = {
-    //     Authorized: true,
-    //     email: m.email,
-    //     role: 'admin'
-    //   }
-    //   localStorage.setItem("Authorized", JSON.stringify(obj));
-    //   this.router.navigate(['home']);
-
-    // }
-
-
-    // else if (m.userName != "admin@png.com" || m.password != 'admin') {
-    //   localStorage.clear()
-    //   this.myMessage = 'Username OR password is invalid.';
-    //   this.errorTrigger = true;
-
-    //   setTimeout(() => {
-    //     this.errorTrigger=false;
-
-    //   }, 3000);
-
-    // }
-
-
-
-  }
-
-
-
-  ngOnInit() {
   }
 
 }
