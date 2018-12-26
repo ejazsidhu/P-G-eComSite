@@ -39,7 +39,7 @@ export class LoginComponent {
     let cradentials = JSON.stringify(form);
     this.generalService.login(cradentials).subscribe(data => {
       localStorage.setItem("Authorized", JSON.stringify(data));
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
       this.changeClass=false;
 
 
