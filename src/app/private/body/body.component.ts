@@ -20,7 +20,7 @@ export class BodyComponent implements OnInit {
 
   allData: any = [];
   searchFilter = '';
-  allDataClone;
+  allDataClone:any[];
 
   categories: any[];
   cars: any = [];
@@ -39,6 +39,10 @@ export class BodyComponent implements OnInit {
   singleShopSelected: boolean = false;
   selelctedShop: any = {};
   currentRange:any;
+  loading=true;
+  successTrigger=false;
+  errorTrigger=false;
+  myMessage: any;
 
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {
@@ -55,9 +59,7 @@ export class BodyComponent implements OnInit {
 
     this.categories = [
       { key: 'Gillette', value: 'Gillette' },
-      // { key: 'Pharmacy Medium', value: 'Pharmacy Medium' },
-      { key: 'Laundry', value: 'Laundry' },
-      // { key: 'Medium', value: 'Medium' },
+      { key: 'Laundry', value: 'Laundry' },    
       { key: 'H&S', value: 'H&S' }
     ];
 
@@ -108,6 +110,7 @@ export class BodyComponent implements OnInit {
   }
 
   updateRange(range: Range){
+    this.loading=true;
     this.range = range;
     console.log("update range",this.range);
        var s = moment(this.range.fromDate).format('YYYY-MM-DD');
@@ -145,8 +148,6 @@ export class BodyComponent implements OnInit {
     ]
   }
 
-
-
   getShop(shop) {
 
     console.log(shop);
@@ -159,10 +160,7 @@ export class BodyComponent implements OnInit {
     console.log("shopes", filterData)
     if (filterData.length > 0)
       this.allData = filterData;
-  }
-
-
-  
+  }  
 
   categoryChange() {
     console.log(this.selectedCategory);
@@ -202,15 +200,30 @@ export class BodyComponent implements OnInit {
     this.singleShopSelected = false;
   }
 
-
-
   getData(range) {
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
       this.allDataClone = this.allData.slice();
       console.log(this.allData);
-      // this.rangeDates=[];
+      if(this.allData.length==0){
+        this.successTrigger=true;
+        this.myMessage='No Data Found';
+
+      }
+    this.loading=false;
+
     }, error => {
+      console.log(error);
+      let er=JSON.parse(error._body)
+      this.myMessage = er.description//'Username OR password is invalid.';
+      this.errorTrigger = true;
+      this.loading=false;
+      setTimeout(() => {
+        this.errorTrigger = false;
+
+      }, 3000);
+
+
 
     });
   }

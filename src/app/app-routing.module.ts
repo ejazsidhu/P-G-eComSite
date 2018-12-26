@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path:'login',
     loadChildren:'./public/public.module#PublicModule',
-    canDeactivate:[AuthGuard]
+    
   },
   {
     path:'home',
