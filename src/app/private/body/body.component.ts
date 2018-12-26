@@ -54,11 +54,11 @@ export class BodyComponent implements OnInit {
     });
 
     this.categories = [
-      { label: 'Gillette', value: 'Gillette' },
-      // { label: 'Pharmacy Medium', value: 'Pharmacy Medium' },
-      { label: 'Laundry', value: 'Laundry' },
-      // { label: 'Medium', value: 'Medium' },
-      { label: 'H&S', value: 'H&S' }
+      { key: 'Gillette', value: 'Gillette' },
+      // { key: 'Pharmacy Medium', value: 'Pharmacy Medium' },
+      { key: 'Laundry', value: 'Laundry' },
+      // { key: 'Medium', value: 'Medium' },
+      { key: 'H&S', value: 'H&S' }
     ];
 
     this.cars = [
@@ -162,18 +162,7 @@ export class BodyComponent implements OnInit {
   }
 
 
-  dateRangeChange() {
-    // if (this.rangeDates[1] != null) {
-    //   var s = moment(this.rangeDates[0]).format('YYYY-MM-DD');
-    //   var e = moment(this.rangeDates[0]).format('YYYY-MM-DD');
-
-    //   this.range = JSON.stringify({ startDate: s, endDate: e });
-    //   console.log('contructor date range', this.range);
-    //   this.getData(this.range);
-    //   this.range = JSON.parse(this.range);
-    // }
-
-  }
+  
 
   categoryChange() {
     console.log(this.selectedCategory);

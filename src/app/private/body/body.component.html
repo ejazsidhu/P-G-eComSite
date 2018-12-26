@@ -23,13 +23,16 @@
           <hr> 
           <!-- <h5>Date Range</h5> -->
           <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
-          <!-- <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
-            [readonlyInput]="true"></p-calendar> -->
-          <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
+         
           <hr>
 
-          <p-multiSelect [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'width':'13rem'}"></p-multiSelect>
+          <mat-form-field>
+            <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" multiple>
+              <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
+          <!-- <p-multiSelect [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'width':'13rem'}"></p-multiSelect> -->
           <!-- <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}"
             autoWidth=true editable="true" placeholder="Select a category"></p-dropdown> -->
 

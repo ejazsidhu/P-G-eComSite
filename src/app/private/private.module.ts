@@ -8,14 +8,18 @@ import { BodyComponent } from './body/body.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {DropdownModule} from 'primeng/dropdown';
-import {FormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CalendarModule} from 'primeng/calendar';
 import {AccordionModule} from 'primeng/accordion';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {DropdownModule} from 'primeng/dropdown';
 
+
+import {FormsModule} from '@angular/forms';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
 @NgModule({
   imports: [
@@ -25,6 +29,9 @@ import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
     // BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
+    MatSelectModule,
+
+    
     MultiSelectModule,
     DropdownModule,
     NgxPaginationModule,
