@@ -14,7 +14,9 @@ import {FormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CalendarModule} from 'primeng/calendar';
 import {AccordionModule} from 'primeng/accordion';
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter'
     NgxPaginationModule,
     CalendarModule,
     AccordionModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxMatDrpModule
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent]
 })

@@ -16,15 +16,15 @@
       <div class="card" style="width:100%">
         <div class="body mt-1 ">
           <h5>Search date range</h5>
-
-          {{range.startDate}} -to- {{range.endDate}}
+          {{currentRange.startDate}} -to- {{currentRange.endDate}}
 
          <!-- <p class="text-center"> <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
          </p> -->
           <hr> 
-          <h5>Date Range</h5>
-          <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
-            [readonlyInput]="true"></p-calendar>
+          <!-- <h5>Date Range</h5> -->
+          <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
+          <!-- <p-calendar [(ngModel)]="rangeDates" (ngModelChange)="dateRangeChange()" [showIcon]="true" selectionMode="range"
+            [readonlyInput]="true"></p-calendar> -->
           <!-- {{rangeDates | date :'YYYY-MM-DD' || 'none'}} -->
           <hr>
 
