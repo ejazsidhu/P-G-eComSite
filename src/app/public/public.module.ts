@@ -5,12 +5,14 @@ import { PublicRoutingModule } from './public-routing.module';
 
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    PublicRoutingModule
+    PublicRoutingModule,MatInputModule,MatButtonModule
   ],
   declarations: [LoginComponent],
 

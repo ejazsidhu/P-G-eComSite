@@ -30,4 +30,15 @@ export class GeneralService {
 
 
   }
+
+
+  login(cradentials:any){
+
+    let url = 'http://pg.rtdtradetracker.com/pictureLogin';
+    return this.http.post(url,cradentials ).map(
+      response => response.json()
+    );
+
+
+  }
 }

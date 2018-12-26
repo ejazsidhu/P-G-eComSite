@@ -3,23 +3,23 @@
     <!-- Tabs Titles -->
 
     <!-- Icon -->
-    <div class="fadeIn first">
+    <div class="fadeIn first mt-1">
       <img src="assets/images/pngLogo.png" id="icon" alt="User Icon" />
-      <h1>P&G Portal</h1>
+      <!-- <h1>P&G Portal</h1> -->
     </div>
 
     <!-- Login Form -->
 
     <div *ngIf="errorTrigger" class="alert alert-danger">
-        <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
-        <i class="fa fa-warning fa-fw"></i>
-        <strong>{{myMessage}}</strong>
-      </div>
+      <!-- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+      <i class="fa fa-warning fa-fw"></i>
+      <strong>{{myMessage}}</strong>
+    </div>
 
 
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-      <input [formControl]="userName" type="text" id="userName" class="fadeIn second" name="userName" placeholder="username">
+    <form [formGroup]="form" class="mt-4 mb-4" (ngSubmit)="onSubmit(form.value)">
+      <!-- <input [formControl]="userName" type="text" id="userName" class="fadeIn second" name="userName" placeholder="username">
       <br>
       <span *ngIf="!userName.valid && userName.touched " class="alert-danger mt-1 mb-1">User name must be greater than 4 charaters</span>
       <br>
@@ -28,11 +28,38 @@
       <br>
       <span *ngIf="!password.valid && password.touched " class="alert-danger mt-1 mb-1"> Password field can't empty.
       </span>
+      <br> -->
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="userName" [errorStateMatcher]="matcher">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="userName.hasError('email') && !userName.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="userName.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" placeholder="Password" [formControl]="password" [errorStateMatcher]="matcher">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <!-- <mat-error *ngIf="password.hasError('email') && !password.hasError('required')">
+          Please enter a valid email address
+        </mat-error> -->
+        <mat-error *ngIf="password.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
       <br>
 
+      <div class="example-button-row mt-3 mb-3">
+        <button [disabled]="form.invalid" mat-button mat-raised-button style="background-color:#5fbae9;color:white">
+          <i class="fa fa-spinner fa-spin" *ngIf="changeClass"></i>
+          Login</button>
+      </div>
 
-
-      <input [disabled]="form.invalid" type="submit" class="fadeIn fourth" value="Log In">
+      <!-- <input [disabled]="form.invalid" type="submit" class="fadeIn fourth" value="Log In"> -->
     </form>
 
     <!-- Remind Passowrd -->

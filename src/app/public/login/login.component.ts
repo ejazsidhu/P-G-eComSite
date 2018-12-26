@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmailValidator } from 'src/assets/validators/email.validator';
+import { GeneralService } from 'src/app/_service/general.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,9 @@ export class LoginComponent implements OnInit {
   successTrigger = false;
   errorTrigger = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private generalService: GeneralService, private fb: FormBuilder, private router: Router) {
 
-    this.form = fb.group({
+    this.form = this.fb.group({
       'userName': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required])],
     });
@@ -31,34 +32,59 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit(m) {
+  onSubmit(form) {
     this.changeClass = true;
-    console.log(m)
+    console.log(form);
+    let cradentials = JSON.stringify(form);
+    this.generalService.login(cradentials).subscribe(data => {
+      localStorage.setItem("Authorized", JSON.stringify(data));
+      this.router.navigate(['/home']);
+      this.changeClass=false;
 
-    if (m.userName == "admin@png.com" && m.password == 'admin') {
-      localStorage.clear()
-      let obj: any = {
-        Authorized: true,
-        email: m.email,
-        role: 'admin'
-      }
-      localStorage.setItem("Authorized", JSON.stringify(obj));
-      this.router.navigate(['home']);
 
-    }
-    
 
-    else if (m.userName != "admin@png.com" || m.password != 'admin') {
-      localStorage.clear()
-      this.myMessage = 'Username OR password is invalid.';
+    }, error => {
+      localStorage.clear();
+      console.log(error);
+      let er=JSON.parse(error._body)
+      this.myMessage = er.description//'Username OR password is invalid.';
       this.errorTrigger = true;
+      this.changeClass=false;
+
 
       setTimeout(() => {
-        this.errorTrigger=false;
-        
+        this.errorTrigger = false;
+
       }, 3000);
 
-    }
+    })
+
+
+
+    // if (m.userName == "admin@png.com" && m.password == 'admin') {
+    //   localStorage.clear()
+    //   let obj: any = {
+    //     Authorized: true,
+    //     email: m.email,
+    //     role: 'admin'
+    //   }
+    //   localStorage.setItem("Authorized", JSON.stringify(obj));
+    //   this.router.navigate(['home']);
+
+    // }
+
+
+    // else if (m.userName != "admin@png.com" || m.password != 'admin') {
+    //   localStorage.clear()
+    //   this.myMessage = 'Username OR password is invalid.';
+    //   this.errorTrigger = true;
+
+    //   setTimeout(() => {
+    //     this.errorTrigger=false;
+
+    //   }, 3000);
+
+    // }
 
 
 
