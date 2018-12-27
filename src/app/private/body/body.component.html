@@ -55,29 +55,46 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- <p-multiSelect [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'width':'13rem'}"></p-multiSelect> -->
-          <!-- <p-dropdown [options]="categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()" [style]="{'max-width':'180px'}"
-            autoWidth=true editable="true" placeholder="Select a category"></p-dropdown> -->
+          <hr>
 
-          <!-- routerLink="/home/"
-            [queryParams]="{category:selectedCity}" -->
-          <!-- <p>Selected value: {{selectedCity || 'none'}}</p> -->
-          <!-- <hr> -->
-          <!-- <h3>City list</h3> -->
-          <!-- <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'max-width':'180px'}" autoWidth=true
-            editable="true" placeholder="Select a REAGION"
-            routerLink="/home/"
-            [queryParams]="{category2:selectedCity1}"
-            ></p-dropdown> -->
-          <!-- <p>Selected value: {{selectedCity1 || 'none'}}</p> -->
-          <!-- <hr> -->
-          <!-- <h3>City list</h3> -->
-          <!-- <p-dropdown [options]="cities" [(ngModel)]="selectedCity2" [style]="{'max-width':'180px'}" autoWidth=true
-            editable="true" placeholder="Select a Brand"></p-dropdown> -->
-          <!-- <p>Selected value: {{selectedCity2 || 'none'}}</p> -->
-          <!-- <hr> -->
-          <!-- <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [style]="{'width':'13rem'}"></p-multiSelect> -->
-          <!-- <p>Selected value: {{selectedCars1}}</p> -->
+          <mat-form-field>
+            <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()" >
+              <mat-option *ngFor="let z of zones" [value]="z">
+                {{z.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr *ngIf="regions.length>0">
+
+          <mat-form-field *ngIf="regions.length>0">
+            <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()" >
+              <mat-option *ngFor="let z of regions" [value]="z">
+                {{z.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr *ngIf="cities.length>0">
+
+          <mat-form-field *ngIf="cities.length>0">
+            <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()" >
+              <mat-option *ngFor="let z of cities" [value]="z">
+                {{z.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <hr *ngIf="chanels.length>0">
+
+          <mat-form-field *ngIf="chanels.length>0">
+            <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()" >
+              <mat-option *ngFor="let z of chanels" [value]="z">
+                {{z.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <!-- <hr> -->
           <!-- <p-accordion class="text-center">
             <p-accordionTab header="advance serach">
@@ -128,7 +145,7 @@
                 </div>
                 <mat-card-title style="font-size:15px;cursor: pointer;" title="{{product.shopName}}">{{product.shopName
                   | slice:0:18 | titlecase}} </mat-card-title>
-                <mat-card-subtitle> </mat-card-subtitle>
+                <mat-card-subtitle>{{product.city}},{{product.region}},{{product.zone}} </mat-card-subtitle>
               </mat-card-header>
               <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
               <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"

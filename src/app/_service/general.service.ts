@@ -49,6 +49,32 @@ export class GeneralService {
       response => response.json()
     );
 
+  }
+
+  getZone(){
+    var filter=JSON.stringify({act:0});
+    let url = 'http://pg.rtdtradetracker.com/loadFilters';
+    return this.http.post(url,filter ).map(
+      response => response.json()
+    );
+
+  }
+
+  getRegion(zoneId){
+    var filter=JSON.stringify({act:1,zoneId:zoneId});
+    let url = 'http://pg.rtdtradetracker.com/loadFilters';
+    return this.http.post(url,filter ).map(
+      response => response.json()
+    );
+
+  }
+
+  getCities(regionId){
+    var filter=JSON.stringify({act:2,regionId:regionId});
+    let url = 'http://pg.rtdtradetracker.com/loadFilters';
+    return this.http.post(url,filter ).map(
+      response => response.json()
+    );
 
   }
 }

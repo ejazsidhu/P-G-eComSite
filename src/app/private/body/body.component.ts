@@ -13,22 +13,18 @@ import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
 })
 export class BodyComponent implements OnInit {
 
+  //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
-  range:Range = {fromDate:new Date(), toDate: new Date()};
-  options:NgxDrpOptions;
-  presets:Array<PresetItem> = [];
+  range: Range = { fromDate: new Date(), toDate: new Date() };
+  options: NgxDrpOptions;
+  presets: Array<PresetItem> = [];
 
   allData: any = [];
   searchFilter = '';
-  allDataClone:any[];
+  allDataClone: any[];
 
-  categories: any[];
-  cars: any = [];
 
-  selectedCategory = [];
-  selectedCity1 = '';
-  selectedCity2 = '';
-  selectedCars1 = [];
+
   p: number = 1;
   d: number = 1;
   filterModel: any = {};
@@ -38,46 +34,39 @@ export class BodyComponent implements OnInit {
   filterProducts: any;
   singleShopSelected: boolean = false;
   selelctedShop: any = {};
-  currentRange:any;
-  loading=true;
-  successTrigger=false;
-  errorTrigger=false;
+  currentRange: any;
+  loading = true;
+  successTrigger = false;
+  errorTrigger = false;
   myMessage: any;
+  zones: any = [];
+  selectedZone: any = {};
 
+  regions: any = [];
+  selectedRegion: any = {};
+  cities: any = []
+  selectedCity: any = {};
+
+  categories: any[];
+  selectedCategory = [];
+
+  chanels: any = [];
+  selectedChanel: any = {};
+
+  //#endregion
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {
-    // console.log(this.selectedCars1);
-
-    this.route.queryParamMap.subscribe(params => {
-      console.log(params.get('category'));
-      console.log(params.get('category2'));
-
-      let s = params.get('category');
-      this.filterProducts = (this.allData) ?
-        this.allData.filter(c => c.category === s) : this.allData = this.allData;
-    });
 
     this.categories = [
       { key: 'Gillette', value: 'Gillette' },
-      { key: 'Laundry', value: 'Laundry' },    
+      { key: 'Laundry', value: 'Laundry' },
       { key: 'H&S', value: 'H&S' }
     ];
 
-    this.cars = [
-      { label: 'Audi', value: 'Audi' },
-      { label: 'BMW', value: 'BMW' },
-      { label: 'Fiat', value: 'Fiat' },
-      { label: 'Ford', value: 'Ford' },
-      { label: 'Honda', value: 'Honda' },
-      { label: 'Jaguar', value: 'Jaguar' },
-      { label: 'Mercedes', value: 'Mercedes' },
-      { label: 'Renault', value: 'Renault' },
-      { label: 'VW', value: 'VW' },
-      { label: 'Volvo', value: 'Volvo' },
-    ];
   }
 
   ngOnInit() {
+    this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
@@ -87,66 +76,68 @@ export class BodyComponent implements OnInit {
     this.currentRange = JSON.parse(this.currentRange)
 
     const today = new Date();
-    const fromMin = new Date(today.getFullYear(), today.getMonth()-2, 1);
-    const fromMax = new Date(today.getFullYear(), today.getMonth()+1, 0);
-    const toMin = new Date(today.getFullYear(), today.getMonth()-1, 1);
-    const toMax = new Date(today.getFullYear(), today.getMonth()+2, 0);
- 
+    const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+    const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const toMin = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const toMax = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+
     this.setupPresets();
     this.options = {
-                    presets: this.presets,
-                    format: 'mediumDate',
-                    range: {fromDate:today, toDate: today},
-                    applyLabel: "Submit",
-                    calendarOverlayConfig: {
-                      shouldCloseOnBackdropClick: false,
-                      // hasBackDrop: false
-                    }
-                    // cancelLabel: "Cancel",
-                    // excludeWeekends:true,
-                    // fromMinMax: {fromDate:fromMin, toDate:fromMax},
-                    // toMinMax: {fromDate:toMin, toDate:toMax}
-                  };
+      presets: this.presets,
+      format: 'mediumDate',
+      range: { fromDate: today, toDate: today },
+      applyLabel: "Submit",
+      calendarOverlayConfig: {
+        shouldCloseOnBackdropClick: false,
+        // hasBackDrop: false
+      }
+      // cancelLabel: "Cancel",
+      // excludeWeekends:true,
+      // fromMinMax: {fromDate:fromMin, toDate:fromMax},
+      // toMinMax: {fromDate:toMin, toDate:toMax}
+    };
   }
 
-  updateRange(range: Range){
-    this.loading=true;
+  //#region date range
+  updateRange(range: Range) {
+    this.loading = true;
     this.range = range;
-    console.log("update range",this.range);
-       var s = moment(this.range.fromDate).format('YYYY-MM-DD');
-      var e = moment(this.range.toDate).format('YYYY-MM-DD');
+    console.log("update range", this.range);
+    var s = moment(this.range.fromDate).format('YYYY-MM-DD');
+    var e = moment(this.range.toDate).format('YYYY-MM-DD');
 
-      this.currentRange = JSON.stringify({ startDate: s, endDate: e });
-      console.log('contructor date currentRange', this.currentRange);
-      this.getData(this.currentRange);
-      this.currentRange = JSON.parse(this.currentRange);
-    
-  } 
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    console.log('contructor date currentRange', this.currentRange);
+    this.getData(this.currentRange);
+    this.currentRange = JSON.parse(this.currentRange);
+
+  }
 
   setupPresets() {
- 
+
     const backDate = (numOfDays) => {
       const today = new Date();
       return new Date(today.setDate(today.getDate() - numOfDays));
     }
-    
+
     const today = new Date();
     const yesterday = backDate(1);
     const minus7 = backDate(7)
     const minus30 = backDate(30);
     const currMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-    const currMonthEnd = new Date(today.getFullYear(), today.getMonth()+1, 0);
-    const lastMonthStart = new Date(today.getFullYear(), today.getMonth()-1, 1);
+    const currMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
-    
-    this.presets =  [
-      {presetLabel: "Yesterday", range:{ fromDate:yesterday, toDate:today }},
-      {presetLabel: "Last 7 Days", range:{ fromDate: minus7, toDate:today }},
-      {presetLabel: "Last 30 Days", range:{ fromDate: minus30, toDate:today }},
-      {presetLabel: "This Month", range:{ fromDate: currMonthStart, toDate:currMonthEnd }},
-      {presetLabel: "Last Month", range:{ fromDate: lastMonthStart, toDate:lastMonthEnd }}
+
+    this.presets = [
+      { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
+      { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
+      { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
+      { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
+      { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
     ]
   }
+  // #endregion
 
   getShop(shop) {
 
@@ -160,14 +151,14 @@ export class BodyComponent implements OnInit {
     console.log("shopes", filterData)
     if (filterData.length > 0)
       this.allData = filterData;
-  }  
+  }
 
   categoryChange() {
     console.log(this.selectedCategory);
     this.allData = [];
     this.allData = this.allDataClone;
     let filterData: any = [];
-    let i = 0
+
     this.selectedCategory.forEach(e => {
       var ft = this.allData.filter(d => d.assetName === e && d.imageType === 'Primary');
       filterData.push(ft)
@@ -195,35 +186,123 @@ export class BodyComponent implements OnInit {
 
   }
 
+  filterAllData() {
+    // this.allData = [];
+    this.allData = this.allDataClone;
+    let filterData: any = [];
+    let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
+    let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
+    let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
+    let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
+
+    console.log("current zone is", zone)
+    console.log("current region is", region)
+    console.log("current city is", city)
+
+    let i = 0;
+    this.allData.forEach(e => {
+      if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
+        filterData = this.allData.filter(d => d.zone === zone);
+
+      if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
+        filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
+
+      if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
+        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
+
+      if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
+        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
+
+    });
+
+    this.allData = filterData;
+
+  }
+
+  zoneChange() {
+    console.log('selected zone', this.selectedZone);
+    this.filterAllData();
+
+    this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
+      this.regions = data;
+
+    }, error => {
+
+    })
+  }
+
+  regionChange() {
+    console.log('regions id', this.selectedRegion);
+    this.filterAllData();
+    this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
+      this.cities = data[0];
+      console.log('cities list', data);
+      this.chanels = data[1];
+    }, error => {
+
+    })
+  }
+
+  cityChange() {
+    console.log("seelcted city", this.selectedCity);
+    this.filterAllData();
+  }
+
+  chanelChange() {
+    console.log("seelcted chanel", this.selectedChanel);
+    this.filterAllData();
+  }
+
   getall() {
     this.allData = this.allDataClone;
     this.singleShopSelected = false;
   }
 
+
+  getZoneList() {
+    this.generalService.getZone().subscribe(data => {
+      console.log('zone list', data)
+      this.zones = data;
+    }, error => {
+      console.log("zone list error", error);
+      // let er = JSON.parse(error._body)
+      // this.myMessage = er.description//'Username OR password is invalid.';
+      // this.errorTrigger = true;
+      // this.loading = false;
+      // setTimeout(() => {
+      //   this.errorTrigger = false;
+
+      // }, 3000);
+    });
+  }
+
   getData(range) {
+    this.selectedCity = {};
+    this.selectedRegion = {};
+    this.selectedCategory = [];
+    this.selectedZone = {};
+
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData = data;
       this.allDataClone = this.allData.slice();
-      console.log(this.allData);
-      if(this.allData.length==0){
-        this.successTrigger=true;
-        this.myMessage='No Data Found';
+      // console.log(this.allData);
+      if (this.allData.length == 0) {
+        this.successTrigger = true;
+        this.myMessage = 'No Data Found';
 
       }
-    this.loading=false;
+      this.loading = false;
 
     }, error => {
       console.log(error);
-      let er=JSON.parse(error._body)
+      let er = JSON.parse(error._body)
       this.myMessage = er.description//'Username OR password is invalid.';
       this.errorTrigger = true;
-      this.loading=false;
+      this.loading = false;
       setTimeout(() => {
         this.errorTrigger = false;
 
       }, 3000);
-
-
 
     });
   }
