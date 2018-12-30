@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import{HttpModule} from '@angular/http'
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 BrowserModule
 
@@ -30,7 +31,7 @@ BrowserModule
     BrowserAnimationsModule
     
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
