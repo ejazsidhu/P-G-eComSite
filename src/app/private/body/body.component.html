@@ -1,8 +1,157 @@
-<div class="container">
+<div class="container-fluid body">
 
 
-  <div class="row mt-3">
-    <div class="col-12 ">
+  <div class="row">
+
+    <div class="col-12">
+
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header class="mt-2">
+            <mat-panel-title>
+              <!-- Serach Filters  -->
+              <mat-form-field>
+                <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
+              </mat-form-field>
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col">
+
+              <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
+
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
+                  multiple>
+                  <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
+                  <mat-option *ngFor="let z of zones" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="regions.length>0">
+                <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()">
+                  <mat-option *ngFor="let z of regions" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="cities.length>0">
+                <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()">
+                  <mat-option *ngFor="let z of cities" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field *ngIf="chanels.length>0">
+                <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()">
+                  <mat-option *ngFor="let z of chanels" [value]="z">
+                    {{z.title}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+
+    <!-- <div class="col">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+                          <i class="material-icons">
+                  search
+                  </i>
+            </button>
+            <mat-menu #menu="matMenu" >
+                <div class="card " style="width:100%">
+                    <div class="card-body mt-1 text-center ">
+                      <h5>Search date range
+            
+                      </h5>
+                      {{currentRange.startDate}} -to- {{currentRange.endDate}}
+            
+                      <hr>
+            
+                      <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
+            
+                      <hr>
+            
+                      <mat-form-field>
+                        <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
+                          multiple>
+                          <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                      <hr>
+            
+                      <mat-form-field>
+                        <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()" >
+                          <mat-option *ngFor="let z of zones" [value]="z">
+                            {{z.title}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                      <hr *ngIf="regions.length>0">
+            
+                      <mat-form-field *ngIf="regions.length>0">
+                        <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()" >
+                          <mat-option *ngFor="let z of regions" [value]="z">
+                            {{z.title}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                      <hr *ngIf="cities.length>0">
+            
+                      <mat-form-field *ngIf="cities.length>0">
+                        <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()" >
+                          <mat-option *ngFor="let z of cities" [value]="z">
+                            {{z.title}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                      <hr *ngIf="chanels.length>0">
+            
+                      <mat-form-field *ngIf="chanels.length>0">
+                        <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()" >
+                          <mat-option *ngFor="let z of chanels" [value]="z">
+                            {{z.title}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                    </div>
+                  </div>
+            </mat-menu>
+       </div> -->
+    <!-- <div class="col-12 ">
         <div *ngIf="successTrigger" class="alert alert-success">
             <i class="fa fa-check fa-fw"></i>
             <strong>{{myMessage}}</strong>
@@ -16,7 +165,7 @@
             <strong>{{myMessage}}</strong>
           </div>
         
-    </div>
+    </div> -->
 
 
     <div class="col text-center">
@@ -31,7 +180,7 @@
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col-3 text-center">
+    <!-- <div class="col-3 text-center">
       <div class="card" style="width:100%">
         <div class="body mt-1 ">
           <h5>Search date range
@@ -40,10 +189,8 @@
           </h5>
           {{currentRange.startDate}} -to- {{currentRange.endDate}}
 
-          <!-- <p class="text-center"> <input type="text" name="searchFilter" [(ngModel)]="searchFilter" class="form-control">
-         </p> -->
           <hr>
-          <!-- <h5>Date Range</h5> -->
+
           <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
 
           <hr>
@@ -95,22 +242,9 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- <hr> -->
-          <!-- <p-accordion class="text-center">
-            <p-accordionTab header="advance serach">
-                <p-dropdown [options]="cities" [(ngModel)]="selectedCity"  [style]="{'padding':'5px'}"  editable="true"
-                placeholder="Select a Brand"></p-dropdown>
-              <p>Selected value: {{selectedCity || 'none'}}</p>
-              <hr>
-              <h3>City list</h3>
-              <p-dropdown [options]="cities" [(ngModel)]="selectedCity1" [style]="{'padding':'5px'}"                editable="true" placeholder="Select a Brand"></p-dropdown>
-              <p>Selected value: {{selectedCity1 || 'none'}}</p>
-           
-            </p-accordionTab>
-          </p-accordion> -->
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col ml-2 " *ngIf="allData.length>0 ">
       <ng-container>
         <!-- <div class="row">
@@ -136,16 +270,28 @@
         <!--  -->
         <div class="row " *ngIf="!singleShopSelected">
 
-          <div class="col-4 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 9, currentPage: p }">
+          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 32, currentPage: p }">
+            <p hidden>{{product.surveyId}}</p>
+            <p hidden>{{product.shopId}}</p>
+            <p hidden>{{product.city}}</p>
+            <p hidden>{{product.region}}</p>
+            <p hidden>{{product.assetName}}</p>
             <mat-card class="example-card">
               <mat-card-header class="mb-1" (click)="getShop(product)">
                 <!--  -->
                 <div mat-card-avatar class="example-header-image">
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                 </div>
-                <mat-card-title style="font-size:15px;cursor: pointer;" title="{{product.shopName}}">{{product.shopName
-                  | slice:0:18 | titlecase}} </mat-card-title>
-                <mat-card-subtitle>{{product.city}},{{product.region}},{{product.zone}} </mat-card-subtitle>
+                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+
+
+
+
+
+                </mat-card-subtitle>
               </mat-card-header>
               <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
               <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
@@ -159,10 +305,10 @@
 
                 </table>
               </mat-card-content>
-              <mat-card-actions>
+              <!-- <mat-card-actions>
                 <button mat-button>Details</button>
-                <!-- <button mat-button>SHARE</button> -->
-              </mat-card-actions>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
             </mat-card>
           </div>
 
@@ -170,26 +316,33 @@
 
 
         <div class="row" *ngIf="singleShopSelected">
-          <button type="button" class="btn btn-large btn-block btn-primary mb-3" (click)="getall()">getAll</button>
+          <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+            <i class="fa fa-arrow-left"></i>
+          </button> -->
 
           <div class="col-6">
             <table class="table">
+              <tr>
+                <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+                  <i class="fa fa-arrow-left"></i>
+                </button>
+              </tr>
               <tr *ngFor="let item of selelctedShop.itemList">
                 <th>{{item.heading}}</th>
                 <td>{{item.value}}</td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td>
                   <a class="btn btn-link">More Details</a>
                 </td>
                 <td></td>
-              </tr>
+              </tr> -->
             </table>
 
           </div>
           <div class="col-6">
 
-            <img src="{{ip}}{{selelctedShop.shopImgURL}}" width="400" alt="">
+            <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt="">
 
           </div>
           <!-- <div class="row">
@@ -199,7 +352,7 @@
 
         </div>
 
-        <div class="row" *ngIf="singleShopSelected">
+        <div class="row mt-4" *ngIf="singleShopSelected">
           <div class="col-4 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1" (click)="getShop(product)">

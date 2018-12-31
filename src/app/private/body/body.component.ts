@@ -231,6 +231,12 @@ export class BodyComponent implements OnInit {
     })
   }
 
+  getCategoryName(product){
+
+    return product.assetItemList[0].value;
+
+  }
+
   regionChange() {
     console.log('regions id', this.selectedRegion);
     this.filterAllData();
