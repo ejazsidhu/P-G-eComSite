@@ -20,6 +20,11 @@ export class GeneralService {
 
 
    }
+
+isUserLoginIn(){
+  return this.isUserExist;
+}
+
   headerCTJson() {
     let header = new Headers({ 'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',

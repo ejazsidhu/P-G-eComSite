@@ -8,14 +8,20 @@
     
   }
   .body {
-    /* background-image: url("../../../assets/images/pngLogo.png") no-repeat ; */
-    background-color: #cacaca;
+    background-image: url("../../../assets/images/bg.png") ;
+    /* background-color: #F8F9FA; */
    }
   .ui-dropdown{
     width: 300px
   }
   .ui-datepicker-trigger{
 height: 34px !important;
+  }
+
+  mat-card:hover{
+    background-color: #f78b38;
+    cursor: pointer;
+
   }
 
   .mat-card-image img{

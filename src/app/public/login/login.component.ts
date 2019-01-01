@@ -39,22 +39,30 @@ export class LoginComponent {
     console.log(cradentials);
     this.generalService.login(cradentials).subscribe(data => {
       console.log('data',data)
+      if(data)
+      this.router.navigate(['/home']);
 
       var d=data
       localStorage.setItem("Authorized", JSON.stringify(d));
-      this.router.navigate(['/home']);
       this.changeClass=false;
     }, error => {
-      localStorage.clear();
+      // localStorage.clear();
       this.changeClass=false;
       console.log('error',error);     
-      if(error._body){
-        let er=JSON.parse(error._body)
-      this.myMessage = er.description//'Username OR password is invalid.';
+      if(error.status==0){
+      
+      this.myMessage = 'please check internet connection';
       this.errorTrigger = true;
       this.changeClass=false;
 
       } 
+      else{
+        // let er=JSON.parse(error._body)
+        // this.myMessage = er.description//'Username OR password is invalid.';
+        // this.errorTrigger = true;
+        // this.changeClass=false;
+
+      }
       
       setTimeout(() => {
         this.errorTrigger = false;

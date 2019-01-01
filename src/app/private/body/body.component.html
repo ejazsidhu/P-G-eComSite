@@ -4,9 +4,9 @@
   <div class="row">
 
     <div class="col-12">
-        <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
+      <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
       <mat-accordion>
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header class="mt-2">
             <mat-panel-title>
               <!-- Serach Filters  -->
@@ -276,21 +276,16 @@
             <p hidden>{{product.city}}</p>
             <p hidden>{{product.region}}</p>
             <p hidden>{{product.assetName}}</p>
-            <mat-card class="example-card">
-              <mat-card-header class="mb-1" (click)="getShop(product)">
+            <mat-card class="example-card" (click)="getShop(product)">
+              <mat-card-header class="mb-1" >
                 <!--  -->
                 <div mat-card-avatar class="example-header-image">
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                 </div>
                 <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-                  | slice:0:14 }} </mat-card-title>
+                  | slice:0:14 }}  </mat-card-title> <span>({{product.imageType}})</span>
                 <mat-card-subtitle>
                   {{product.shopName | titlecase}}
-
-
-
-
-
                 </mat-card-subtitle>
               </mat-card-header>
               <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
@@ -298,9 +293,14 @@
                 #noImageFound>
               <mat-card-content>
                 <table>
-                  <tr *ngFor="let d of product.assetItemList ">
-                    <th>{{d.heading}}:</th>
-                    <td style="font-size:10px">{{d.value}}</td>
+                  <tr>
+                    <th>Channel Name:</th>
+                    <td>{{product.channelName}}</td>
+                  </tr>
+
+                  <tr *ngFor="let d of product.assetItemList;let i=index">
+                    <th *ngIf="i!=0">{{d.heading}}:</th>
+                    <td *ngIf="i!=0">{{d.value}}</td>
                   </tr>
 
                 </table>
@@ -345,41 +345,50 @@
             <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt="">
 
           </div>
-          <!-- <div class="row">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
-</div> -->
+
+        </div>
+
+        <div class="row mt-1 mb-1" *ngIf="singleShopSelected">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
         </div>
 
         <div class="row mt-4" *ngIf="singleShopSelected">
-          <div class="col-4 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
+          <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1" (click)="getShop(product)">
                 <!--  -->
                 <div mat-card-avatar class="example-header-image">
                   <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                 </div>
-                <mat-card-title style="font-size:15px;cursor: pointer;" title="{{product.shopName}}">{{product.shopName
-                  | slice:0:18 | titlecase}} </mat-card-title>
-                <mat-card-subtitle> </mat-card-subtitle>
+                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+                </mat-card-subtitle>
               </mat-card-header>
               <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
               <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
                 #noImageFound>
               <mat-card-content>
-                <table>
-                  <tr *ngFor="let d of product.assetItemList ">
-                    <th>{{d.heading}}:</th>
-                    <td style="font-size:10px">{{d.value}}</td>
-                  </tr>
-
-                </table>
+                  <table>
+                      <tr>
+                        <th>Channel Name:</th>
+                        <td>{{product.channelName}}</td>
+                      </tr>
+    
+                      <tr *ngFor="let d of product.assetItemList;let i=index">
+                        <th *ngIf="i!=0">{{d.heading}}:</th>
+                        <td *ngIf="i!=0" >{{d.value}}</td>
+                      </tr>
+    
+                    </table>
               </mat-card-content>
-              <mat-card-actions>
+              <!-- <mat-card-actions>
                 <button mat-button>Details</button>
-                <!-- <button mat-button>SHARE</button> -->
-              </mat-card-actions>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
             </mat-card>
           </div>
         </div>

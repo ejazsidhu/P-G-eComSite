@@ -301,9 +301,9 @@ export class BodyComponent implements OnInit {
 
     }, error => {
       console.log(error);
-      let er = JSON.parse(error._body)
-      this.myMessage = er.description//'Username OR password is invalid.';
-      this.errorTrigger = true;
+      // let er = JSON.parse(error._body)
+      // this.myMessage = er.description//'Username OR password is invalid.';
+      // this.errorTrigger = true;
       this.loading = false;
       setTimeout(() => {
         this.errorTrigger = false;
