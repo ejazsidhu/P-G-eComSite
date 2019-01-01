@@ -7,12 +7,12 @@
       <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
       <mat-accordion>
         <mat-expansion-panel>
-          <mat-expansion-panel-header class="mt-2">
+          <mat-expansion-panel-header class="mt-1">
             <mat-panel-title>
               <!-- Serach Filters  -->
               <mat-form-field>
                 <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
-              </mat-form-field>
+                            </mat-form-field>
             </mat-panel-title>
             <mat-panel-description>
 
@@ -80,77 +80,6 @@
     </div>
 
 
-    <!-- <div class="col">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-                          <i class="material-icons">
-                  search
-                  </i>
-            </button>
-            <mat-menu #menu="matMenu" >
-                <div class="card " style="width:100%">
-                    <div class="card-body mt-1 text-center ">
-                      <h5>Search date range
-            
-                      </h5>
-                      {{currentRange.startDate}} -to- {{currentRange.endDate}}
-            
-                      <hr>
-            
-                      <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
-            
-                      <hr>
-            
-                      <mat-form-field>
-                        <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
-                          multiple>
-                          <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-            
-                      <hr>
-            
-                      <mat-form-field>
-                        <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()" >
-                          <mat-option *ngFor="let z of zones" [value]="z">
-                            {{z.title}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-            
-                      <hr *ngIf="regions.length>0">
-            
-                      <mat-form-field *ngIf="regions.length>0">
-                        <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()" >
-                          <mat-option *ngFor="let z of regions" [value]="z">
-                            {{z.title}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-            
-                      <hr *ngIf="cities.length>0">
-            
-                      <mat-form-field *ngIf="cities.length>0">
-                        <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()" >
-                          <mat-option *ngFor="let z of cities" [value]="z">
-                            {{z.title}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-            
-                      <hr *ngIf="chanels.length>0">
-            
-                      <mat-form-field *ngIf="chanels.length>0">
-                        <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()" >
-                          <mat-option *ngFor="let z of chanels" [value]="z">
-                            {{z.title}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-            
-                    </div>
-                  </div>
-            </mat-menu>
-       </div> -->
     <!-- <div class="col-12 ">
         <div *ngIf="successTrigger" class="alert alert-success">
             <i class="fa fa-check fa-fw"></i>
@@ -170,7 +99,6 @@
 
     <div class="col text-center">
       <i class="fa fa-spinner fa-spin fa-2x" style="color:lightskyblue" *ngIf="allData.length==0"></i>
-
     </div>
   </div>
 
@@ -180,71 +108,6 @@
     </div>
   </div>
   <div class="row mt-3">
-    <!-- <div class="col-3 text-center">
-      <div class="card" style="width:100%">
-        <div class="body mt-1 ">
-          <h5>Search date range
-            <i class="fa fa-spinner fa-spin fa-2x" style="color:lightskyblue" *ngIf="loading"></i>
-
-          </h5>
-          {{currentRange.startDate}} -to- {{currentRange.endDate}}
-
-          <hr>
-
-          <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
-
-          <hr>
-
-          <mat-form-field>
-            <mat-select placeholder="Categories" [(ngModel)]="selectedCategory" (ngModelChange)="categoryChange()"
-              multiple>
-              <mat-option *ngFor="let category of categories" [value]="category.key">{{category.value}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <hr>
-
-          <mat-form-field>
-            <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()" >
-              <mat-option *ngFor="let z of zones" [value]="z">
-                {{z.title}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <hr *ngIf="regions.length>0">
-
-          <mat-form-field *ngIf="regions.length>0">
-            <mat-select placeholder="Regions" [(ngModel)]="selectedRegion" (ngModelChange)="regionChange()" >
-              <mat-option *ngFor="let z of regions" [value]="z">
-                {{z.title}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <hr *ngIf="cities.length>0">
-
-          <mat-form-field *ngIf="cities.length>0">
-            <mat-select placeholder="Cities" [(ngModel)]="selectedCity" (ngModelChange)="cityChange()" >
-              <mat-option *ngFor="let z of cities" [value]="z">
-                {{z.title}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <hr *ngIf="chanels.length>0">
-
-          <mat-form-field *ngIf="chanels.length>0">
-            <mat-select placeholder="Chanels" [(ngModel)]="selectedChanel" (ngModelChange)="chanelChange()" >
-              <mat-option *ngFor="let z of chanels" [value]="z">
-                {{z.title}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-      </div>
-    </div> -->
     <div class="col ml-2 " *ngIf="allData.length>0 ">
       <ng-container>
         <!-- <div class="row">
@@ -276,6 +139,8 @@
             <p hidden>{{product.city}}</p>
             <p hidden>{{product.region}}</p>
             <p hidden>{{product.assetName}}</p>
+            <p hidden>{{product.asm}}</p>
+            <p hidden>{{product.srName}}</p>
             <mat-card class="example-card" (click)="getShop(product)">
               <mat-card-header class="mb-1" >
                 <!--  -->

@@ -57,7 +57,7 @@ isUserLoginIn(){
   login(cradentials:any){
     // console.log(cradentials)
 
-    let url = this.ip+'pictureLogin';
+    let url = this.ip + 'pictureLogin';
      let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
     return this.http.post(url,cradentials,option ).map(
