@@ -26,10 +26,11 @@ isUserLoginIn(){
 }
 
   headerCTJson() {
-    let header = new Headers({ 'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-    'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
-    'Access-Control-Allow-Credentials': true });
+    let header = new Headers({'userId':localStorage.getItem('Authorized')})
+    // new Headers({ 'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    // 'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+    // 'Access-Control-Allow-Credentials': true });
     return header;
   }
 
@@ -46,7 +47,7 @@ isUserLoginIn(){
     let url = this.ip+'clientShopFacia';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url, range,option).map(
+    return this.http.post(url, range).map(
       response => response.json()
     );
 
@@ -60,7 +61,7 @@ isUserLoginIn(){
     let url = this.ip + 'pictureLogin';
      let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,cradentials,option ).map(
+    return this.http.post(url,cradentials ).map(
       response => response.json()
     );
 
@@ -71,7 +72,7 @@ isUserLoginIn(){
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter,option ).map(
+    return this.http.post(url,filter).map(
       response => response.json()
     );
 
@@ -82,7 +83,7 @@ isUserLoginIn(){
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter,option ).map(
+    return this.http.post(url,filter ).map(
       response => response.json()
     );
 
@@ -93,7 +94,7 @@ isUserLoginIn(){
     let url = this.ip+'loadFilters';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter,option ).map(
+    return this.http.post(url,filter ).map(
       response => response.json()
     );
 

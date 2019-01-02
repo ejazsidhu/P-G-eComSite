@@ -18,8 +18,8 @@
 height: 34px !important;
   }
 
-  mat-card:hover{
-    background-color: #fd9443;
+   mat-card.main:hover{
+    background-color: #b1dcfc;
     cursor: pointer;
 
   }

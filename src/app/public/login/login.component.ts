@@ -34,6 +34,7 @@ export class LoginComponent {
 
 
   onSubmit(form) {
+    localStorage.clear();
     this.changeClass = true;
     let cradentials = JSON.stringify(form);
     console.log(cradentials);
