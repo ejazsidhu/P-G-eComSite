@@ -99,4 +99,15 @@ isUserLoginIn(){
     );
 
   }
+
+  getCategories(channelId){
+    var filter=JSON.stringify({act:3,channelId:channelId});
+    let url = this.ip+'loadFilters';
+    let httpOption = this.headerCTJson();
+    const option = new RequestOptions({ headers: httpOption });
+    return this.http.post(url,filter ).map(
+      response => response.json()
+    );
+
+  }
 }

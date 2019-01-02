@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GeneralService } from 'src/app/_service/general.service';
-import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { NgxDrpOptions, PresetItem ,Range} from 'ngx-mat-daterange-picker';
 
-import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
 
 @Component({
-  selector: 'app-body',
-  templateUrl: './body.component.html',
-  styleUrls: ['./body.component.css']
+  selector: 'modren-body',
+  templateUrl: './modren-body.component.html',
+  styleUrls: ['./modren-body.component.css']
 })
-export class BodyComponent implements OnInit {
-
+export class ModrenBodyComponent implements OnInit {
+  
   //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
   range: Range = { fromDate: new Date(), toDate: new Date() };
