@@ -52,6 +52,7 @@ export class ModrenBodyComponent implements OnInit {
 
   chanels: any = [];
   selectedChanel: any = {};
+  loadingData: boolean=true;
 
   //#endregion
 
@@ -303,6 +304,10 @@ export class ModrenBodyComponent implements OnInit {
 
       }
       this.loading = false;
+      setTimeout(() => {
+        this.loadingData = false;
+
+      }, 20000);
 
     }, error => {
       console.log(error);

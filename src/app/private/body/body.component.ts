@@ -41,13 +41,13 @@ export class BodyComponent implements OnInit {
   myMessage: any;
   zones: any = [];
   selectedZone: any = {};
-
+  loadingData = true;
   regions: any = [];
   selectedRegion: any = {};
   cities: any = []
   selectedCity: any = {};
 
-  categories: any=[];
+  categories: any = [];
   selectedCategory = [];
 
   chanels: any = [];
@@ -71,7 +71,7 @@ export class BodyComponent implements OnInit {
     var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
-    // console.log('contructor date range', this.range);
+    console.log('contructor date range', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
 
@@ -231,7 +231,7 @@ export class BodyComponent implements OnInit {
     })
   }
 
-  getCategoryName(product){
+  getCategoryName(product) {
 
     return product.assetItemList[0].value;
 
@@ -257,9 +257,9 @@ export class BodyComponent implements OnInit {
   chanelChange() {
     console.log("seelcted chanel", this.selectedChanel);
     this.filterAllData();
-    this.generalService.getCategories(this.selectedChanel).subscribe(data=>{
-      this.categories=data;
-    },error=>{})
+    this.generalService.getCategories(this.selectedChanel).subscribe(data => {
+      this.categories = data;
+    }, error => { })
 
 
   }
@@ -303,6 +303,10 @@ export class BodyComponent implements OnInit {
 
       }
       this.loading = false;
+      setTimeout(() => {
+        this.loadingData = false;
+
+      }, 10000);
 
     }, error => {
       console.log(error);
@@ -318,9 +322,9 @@ export class BodyComponent implements OnInit {
     });
   }
 
-  getRandumHeightWidth(){
+  getRandumHeightWidth() {
     // console.log('randum height',Math.floor(Math.random() * 40) + 300)
-    return {height:Math.floor(Math.random() * 200) + 100+'px',width:Math.floor(Math.random() * 400) + 200+'px'}
+    return { height: Math.floor(Math.random() * 200) + 100 + 'px', width: Math.floor(Math.random() * 400) + 200 + 'px' }
     // ;
   }
 

@@ -1,6 +1,7 @@
 .example-card {
     max-width: 400px;
     /* max-height: 400px */
+    box-shadow: 2px 5px 15px 3px #c4c4c4
   }
 
   #inf.mat-card-image{
@@ -8,7 +9,7 @@
     
   }
   .body {
-    background-image: url("../../../assets/images/bg.png") ;
+    /* background-image: url("../../../assets/images/bg.png") ; */
     /* background-color: #F8F9FA; */
    }
   .ui-dropdown{

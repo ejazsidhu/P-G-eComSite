@@ -1,7 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-li.active{
-    font-weight: 800;
-    background-color: lightgray;
+
+.navbar{
+    color: white;
+    background: #089DE3 !important;
 }
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link{
+    color:white !important;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #37AFE7;
+    margin: 0 5px 0 5px;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: white;
+    font-size: 17px;
+    margin: 0 5px 0 5px;
+
+}
+.mat-icon-button:hover{
+    color: orange !important;
+
+}
+
+
+.detail{
+    background-color: #37AFE7;
+    margin: 0 auto;
+    padding: 5px;
+    color: white;
+    box-shadow: 4px 5px 15px 7px 
+}
+/* li.active{
+    font-size: 25px !important;
+    color: white !important;
+    
+}
+a.nav-Link{
+    color: white !important;
+    font-size: 15px!important
+} */

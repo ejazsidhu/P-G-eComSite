@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background-color:azure">
+<div class="container-fluid" >
   <div class="row">
 
     <div class="col-12">
@@ -97,9 +97,10 @@
         </div> -->
 
 
-    <div class="col text-center">
-      <i class="fa fa-spinner fa-spin fa-2x" style="color:lightskyblue" *ngIf="allData.length==0"></i>
-    </div>
+        <div class="col text-center mt-1" >
+            <!-- *ngIf="allData.length==0" -->
+          <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData" ></i>
+        </div>
   </div>
 
   <div class="row mt-3" *ngIf="allData.length>0">
@@ -108,13 +109,13 @@
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!singleShopSelected">
 
     <div class="col-12">
       <div class="masonry">
-        <div (click)="getShop(product)" class="item" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
+        <div  class="item" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
 
-          <div style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}}">
+          <div style="white-space: nowrap;word-wrap: break-word; cursor: pointer;" (click)="getShop(product)" title="{{getCategoryName(product)}}">
 
             <h3> {{getCategoryName(product)
               | slice:0:14 }}   </h3>
@@ -124,8 +125,6 @@
           <span>
               ({{product.imageType}}) {{product.shopName | titlecase}}
           </span>
-
-
           <img src="{{ip}}{{product.assetImageURL}}" [ngStyle]="getRandumHeightWidth()">
           <!-- <p> {{product.shopName | titlecase}}</p> -->
           <table>
@@ -146,4 +145,78 @@
     </div>
 
   </div>
+
+  <div class="row text-center detail" *ngIf="singleShopSelected">
+      <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+        <i class="fa fa-arrow-left"></i>
+      </button> -->
+
+      <div class="col-6">
+        <table class="table text-justify">
+          <tr>
+            <button type="button" class="btn btn-primary mb-3" (click)="getall()">
+              <i class="fa fa-arrow-left"></i>
+            </button>
+          </tr>
+          <tr *ngFor="let item of selelctedShop.itemList">
+            <th>{{item.heading}}</th>
+            <td>{{item.value}}</td>
+          </tr>
+          <!-- <tr>
+            <td>
+              <a class="btn btn-link">More Details</a>
+            </td>
+            <td></td>
+          </tr> -->
+        </table>
+
+      </div>
+      <div class="col-6">
+
+        <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt="" class="img-thumbnail">
+
+      </div>
+
+
+    </div>
+  
+      <div class="row mt-4 " *ngIf="singleShopSelected">
+          <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
+            <mat-card class="example-card">
+              <mat-card-header class="mb-1" (click)="getShop(product)">
+                <!--  -->
+                <div mat-card-avatar class="example-header-image">
+                  <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
+                </div>
+                <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
+                  | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                <mat-card-subtitle>
+                  {{product.shopName | titlecase}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+              <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
+                #noImageFound>
+              <mat-card-content>
+                  <table>
+                      <tr>
+                        <th>Channel:</th>
+                        <td>{{product.channelName}}</td>
+                      </tr>
+    
+                      <tr *ngFor="let d of product.assetItemList;let i=index">
+                        <th *ngIf="i!=0">{{d.heading}}:</th>
+                        <td *ngIf="i!=0" >{{d.value}}</td>
+                      </tr>
+    
+                    </table>
+              </mat-card-content>
+              <!-- <mat-card-actions>
+                <button mat-button>Details</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions> -->
+            </mat-card>
+          </div>
+        </div>
+  
 </div>
