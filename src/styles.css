@@ -20,9 +20,16 @@
     margin: 0 5px 0 5px;
 
 }
+
 .mat-icon-button:hover{
     color: orange !important;
 
+}
+.table-noborder table{
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
 }
 
 
@@ -31,7 +38,7 @@
     margin: 0 auto;
     padding: 5px;
     color: white;
-    box-shadow: 4px 5px 15px 7px 
+    box-shadow: 5px 10px 13px 1px lightgrey 
 }
 /* li.active{
     font-size: 25px !important;
