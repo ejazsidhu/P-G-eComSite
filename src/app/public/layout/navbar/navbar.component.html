@@ -46,9 +46,9 @@
           <mat-icon>voicemail</mat-icon>
           <span>Check voicemail</span>
         </button>-->
-        <button mat-menu-item>
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
+        <button mat-menu-item (click)="openDialog()">
+          <mat-icon>fingerprint</mat-icon>
+          <span>Manage Profile</span>
         </button> 
 
         <button mat-menu-item title="Logout" routerLink="/login">
@@ -59,3 +59,5 @@
 
   </div>
 </nav>
+
+

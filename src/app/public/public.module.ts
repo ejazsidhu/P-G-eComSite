@@ -7,12 +7,14 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
-    PublicRoutingModule,MatInputModule,MatButtonModule
+    PublicRoutingModule,MatInputModule,MatButtonModule,
+    MatDialogModule
   ],
   declarations: [LoginComponent],
 

@@ -30,6 +30,7 @@ import {FormsModule} from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
 import { ModrenBodyComponent } from './modren-body/modren-body.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -59,6 +60,6 @@ import { ModrenBodyComponent } from './modren-body/modren-body.component';
     NgxMatDrpModule,
     NgbModule
   ],
-  declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent]
+  declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent, UserProfileComponent]
 })
 export class PrivateModule { }
