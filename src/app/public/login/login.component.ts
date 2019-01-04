@@ -61,10 +61,10 @@ export class LoginComponent {
 
       }
       else {
-        // let er=JSON.parse(error._body)
-        // this.myMessage = er.description//'Username OR password is invalid.';
-        // this.errorTrigger = true;
-        // this.changeClass=false;
+        let er=JSON.parse(error._body)
+        this.myMessage = er.description//'Username OR password is invalid.';
+        this.errorTrigger = true;
+        this.changeClass=false;
 
       }
 
