@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <div class="row mt-3" *ngIf="allData.length>0">
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
 
     <div class="col text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -121,8 +121,8 @@
               <img style="cursor:pointer" src="{{ip}}{{product.shopImgURL}}" width="60" class="img-thumbnail rounded-circle borderShadow">
 
             </div>
-            <div class="col link">
-              <div style="white-space: nowrap;word-wrap: break-word;" (click)="getShop(product)" title="{{getCategoryName(product)}}">
+            <div class="col link" (click)="getShop(product)">
+              <div style="white-space: nowrap;word-wrap: break-word;"  title="{{getCategoryName(product)}} ({{product.imageType}})">
 
                 <h3> {{getCategoryName(product)
                   | slice:0:14 }} </h3>
@@ -157,7 +157,7 @@
 
   </div>
 
-  <div class="row mt-3" *ngIf="allData.length>0">
+  <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
 
     <div class="col text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
@@ -199,7 +199,7 @@
   </div>
 
   <div class="row mt-4 " *ngIf="singleShopSelected">
-    <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 9, currentPage: p }">
+    <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
       <mat-card class="example-card">
         <mat-card-header class="mb-1" (click)="getShop(product)">
           <!--  -->
