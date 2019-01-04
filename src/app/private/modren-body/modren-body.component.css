@@ -46,6 +46,13 @@ h1 {
       box-shadow: 2px 5px 15px 3px #c4c4c4;
       /* box-shadow: 2px 2px 4px 0 #ccc; */
   }
+
+
+  .link:hover{
+    /* background-color: #b1dcfc; */
+    cursor: pointer;
+
+  }
   .item img{max-width:100%;}
   
   @media only screen and (max-width: 320px) {
