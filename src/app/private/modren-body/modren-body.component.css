@@ -42,7 +42,9 @@ h1 {
       box-sizing: border-box;
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box;
-      box-shadow: 2px 2px 4px 0 #ccc;
+
+      box-shadow: 2px 5px 15px 3px #c4c4c4;
+      /* box-shadow: 2px 2px 4px 0 #ccc; */
   }
   .item img{max-width:100%;}
   
@@ -74,4 +76,9 @@ h1 {
           -webkit-column-count: 5;
           column-count: 5;
       }
+  }
+
+
+  .borderShadow{
+    box-shadow: 2px 5px 8px lightgrey;
   }
