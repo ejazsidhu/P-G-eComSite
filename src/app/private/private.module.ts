@@ -22,6 +22,7 @@ import {AccordionModule} from 'primeng/accordion';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import {FormsModule} from '@angular/forms';
@@ -29,6 +30,10 @@ import {FormsModule} from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
 import { ModrenBodyComponent } from './modren-body/modren-body.component';
+
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +56,8 @@ import { ModrenBodyComponent } from './modren-body/modren-body.component';
     CalendarModule,
     AccordionModule,
     Ng2SearchPipeModule,
-    NgxMatDrpModule
+    NgxMatDrpModule,
+    NgbModule
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent]
 })

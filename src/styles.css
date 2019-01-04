@@ -34,10 +34,10 @@
 
 
 .detail{
-    background-color: #37AFE7;
+    /* background-color: #37AFE7; */
     margin: 0 auto;
     padding: 5px;
-    color: white;
+    /* color: white; */
     box-shadow: 5px 10px 13px 1px lightgrey 
 }
 /* li.active{

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+
 BrowserModule
 
 @NgModule({
