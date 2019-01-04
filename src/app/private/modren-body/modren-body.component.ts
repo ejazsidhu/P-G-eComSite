@@ -188,6 +188,7 @@ export class ModrenBodyComponent implements OnInit {
   }
 
   filterAllData() {
+    this.loadingData=true;
     // this.allData = [];
     this.allData = this.allDataClone;
     let filterData: any = [];
@@ -217,6 +218,10 @@ export class ModrenBodyComponent implements OnInit {
     });
 
     this.allData = filterData;
+
+    setTimeout(() => {
+      this.loadingData=false;      
+    }, 4000);
 
   }
 
