@@ -4,6 +4,7 @@
     <div class="col-12">
       <!-- (opened)="panelOpenState = true" (closed)="panelOpenState = false" -->
       <mat-accordion>
+
         <mat-expansion-panel>
           <mat-expansion-panel-header class="mt-1">
             <mat-panel-title>
@@ -17,7 +18,9 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div class="row">
+
             <div class="col">
+
 
               <ngx-mat-drp (selectedDateRangeChanged)="updateRange($event)" [options]="options" #dateRangePicker></ngx-mat-drp>
 
@@ -106,8 +109,14 @@
 
   <div class="row mt-3" *ngIf="allData.length>0 && !singleShopSelected">
 
-    <div class="col text-center">
+    <div class="col-11 text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+     
+    </div>
+    <div class="col">
+        <button class="refresh-btn" title="clear all filters" (click)="clearAllFilters()">
+            <i class="fa fa-refresh fa-2x "[ngClass]="{'fa-spin':loadingData && allData.length>0}" ></i>
+          </button>
     </div>
   </div>
   <div class="row" *ngIf="!singleShopSelected">
@@ -216,7 +225,8 @@
             {{product.shopName | titlecase}}
           </mat-card-subtitle>
         </mat-card-header>
-        <img *ngIf="product.assetImageURL;" style="width:100% !important" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+        <img *ngIf="product.assetImageURL;" style="width:100% !important" mat-card-image src="{{ip}}{{product.assetImageURL}}"
+          alt="Product photo">
         <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
           #noImageFound>
         <mat-card-content>
@@ -265,29 +275,29 @@
       ">
           <table class="table" *ngIf="selectedProduct.itemList">
             <thead>
-              <tr   >
+              <tr>
                 <!-- <th>{{selectedProduct.itemList[0].heading}}</th> -->
                 <th>{{selectedProduct.itemList[1].heading}}</th>
                 <th>{{selectedProduct.itemList[2].heading}}</th>
                 <th>{{selectedProduct.itemList[3].heading}}</th>
                 <th>{{selectedProduct.itemList[4].heading}}</th>
                 <th>{{selectedProduct.itemList[5].heading}}</th>
-               
+
               </tr>
-            
+
 
             </thead>
 
             <tbody>
-                <tr   >
-                    <!-- <td>{{selectedProduct.itemList[0].value}}</td> -->
-                    <td>{{selectedProduct.itemList[1].value}}</td>
-                    <td>{{selectedProduct.itemList[2].value}}</td>
-                    <td>{{selectedProduct.itemList[3].value}}</td>
-                    <td>{{selectedProduct.itemList[4].value}}</td>
-                    <td>{{selectedProduct.itemList[5].value}}</td>
-  
-                </tr>
+              <tr>
+                <!-- <td>{{selectedProduct.itemList[0].value}}</td> -->
+                <td>{{selectedProduct.itemList[1].value}}</td>
+                <td>{{selectedProduct.itemList[2].value}}</td>
+                <td>{{selectedProduct.itemList[3].value}}</td>
+                <td>{{selectedProduct.itemList[4].value}}</td>
+                <td>{{selectedProduct.itemList[5].value}}</td>
+
+              </tr>
             </tbody>
           </table>
 

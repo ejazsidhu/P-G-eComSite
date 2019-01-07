@@ -354,4 +354,16 @@ export class ModrenBodyComponent implements OnInit {
     // ;
   }
 
+  clearAllFilters(){
+    this.loadingData=true;
+    this.selectedZone={};
+    this.selectedRegion={};
+    this.selectedCity={};
+    this.selectedChanel={};
+    this.selectedCategory=[];
+    setTimeout(() => {
+      this.loadingData=false;
+    }, 3000);
+  }
+
 }
