@@ -53,7 +53,11 @@ h1 {
     cursor: pointer;
 
   }
-  .item img{max-width:100%;}
+
+  .image-div{
+      text-align: center;
+  }
+  .item>.image-div img{max-width:100%;}
   
   @media only screen and (max-width: 320px) {
       .masonry {

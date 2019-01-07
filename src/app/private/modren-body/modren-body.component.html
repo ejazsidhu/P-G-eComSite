@@ -24,6 +24,7 @@
             </div>
 
 
+
             <div class="col">
               <mat-form-field>
                 <mat-select placeholder="Zones" [(ngModel)]="selectedZone" (ngModelChange)="zoneChange()">
@@ -122,7 +123,7 @@
 
             </div>
             <div class="col link" (click)="getShop(product)">
-              <div style="white-space: nowrap;word-wrap: break-word;"  title="{{getCategoryName(product)}} ({{product.imageType}})">
+              <div style="white-space: nowrap;word-wrap: break-word;" title="{{getCategoryName(product)}} ({{product.imageType}})">
 
                 <h3> {{getCategoryName(product)
                   | slice:0:14 }} </h3>
@@ -134,9 +135,11 @@
 
             </div>
           </div>
+          <div class="image-div">
+            <img src="{{ip}}{{product.assetImageURL}}" [ngStyle]="getRandumHeightWidth()">
 
+          </div>
 
-          <img src="{{ip}}{{product.assetImageURL}}" [ngStyle]="getRandumHeightWidth()">
           <!-- <p> {{product.shopName | titlecase}}</p> -->
           <table>
             <tr>
