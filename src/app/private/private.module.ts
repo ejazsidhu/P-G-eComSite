@@ -31,6 +31,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
 import { ModrenBodyComponent } from './modren-body/modren-body.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ModalModule } from 'ngx-bootstrap';
+
+
+
 
 
 
@@ -58,7 +62,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     AccordionModule,
     Ng2SearchPipeModule,
     NgxMatDrpModule,
-    NgbModule
+    NgbModule,
+
+    ModalModule.forRoot()
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent, UserProfileComponent]
 })

@@ -119,7 +119,8 @@
 
           <div class="row">
             <div class="col-3">
-              <img style="cursor:pointer" src="{{ip}}{{product.shopImgURL}}" width="60" class="img-thumbnail rounded-circle borderShadow">
+              <img style="cursor: pointer;" (mouseenter)="getAlert(product)" src="{{ip}}{{product.shopImgURL}}" width="60"
+                class="img-thumbnail rounded-circle borderShadow">
 
             </div>
             <div class="col link" (click)="getShop(product)">
@@ -215,7 +216,7 @@
             {{product.shopName | titlecase}}
           </mat-card-subtitle>
         </mat-card-header>
-        <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
+        <img *ngIf="product.assetImageURL;" style="width:100% !important" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
         <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
           #noImageFound>
         <mat-card-content>
@@ -240,4 +241,61 @@
     </div>
   </div>
 
+</div>
+
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Child modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body text-center">
+        <div>
+          <h5>
+            {{selectedProduct.shopName}}
+          </h5>
+          <img src="{{ip}}{{selectedProduct.shopImgURL}}" alt="" style="
+          width: 100%;
+          height: 500px;
+      ">
+          <table class="table" *ngIf="selectedProduct.itemList">
+            <thead>
+              <tr   >
+                <!-- <th>{{selectedProduct.itemList[0].heading}}</th> -->
+                <th>{{selectedProduct.itemList[1].heading}}</th>
+                <th>{{selectedProduct.itemList[2].heading}}</th>
+                <th>{{selectedProduct.itemList[3].heading}}</th>
+                <th>{{selectedProduct.itemList[4].heading}}</th>
+                <th>{{selectedProduct.itemList[5].heading}}</th>
+               
+              </tr>
+            
+
+            </thead>
+
+            <tbody>
+                <tr   >
+                    <!-- <td>{{selectedProduct.itemList[0].value}}</td> -->
+                    <td>{{selectedProduct.itemList[1].value}}</td>
+                    <td>{{selectedProduct.itemList[2].value}}</td>
+                    <td>{{selectedProduct.itemList[3].value}}</td>
+                    <td>{{selectedProduct.itemList[4].value}}</td>
+                    <td>{{selectedProduct.itemList[5].value}}</td>
+  
+                </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+
+        <!-- I am a child modal, opened from parent component! -->
+      </div>
+    </div>
+  </div>
 </div>

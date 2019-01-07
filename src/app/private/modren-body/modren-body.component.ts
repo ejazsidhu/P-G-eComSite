@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { NgxDrpOptions, PresetItem ,Range} from 'ngx-mat-daterange-picker';
+import { ModalDirective } from 'ngx-bootstrap';
 
 
 @Component({
@@ -15,6 +16,16 @@ export class ModrenBodyComponent implements OnInit {
   
   //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
+
+  @ViewChild('childModal') childModal: ModalDirective;
+ 
+  showChildModal(): void {
+    this.childModal.show();
+  }
+ 
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
   range: Range = { fromDate: new Date(), toDate: new Date() };
   options: NgxDrpOptions;
   presets: Array<PresetItem> = [];
@@ -53,6 +64,7 @@ export class ModrenBodyComponent implements OnInit {
   chanels: any = [];
   selectedChanel: any = {};
   loadingData: boolean=true;
+  selectedProduct: any={};
 
   //#endregion
 
@@ -222,6 +234,14 @@ export class ModrenBodyComponent implements OnInit {
     setTimeout(() => {
       this.loadingData=false;      
     }, 4000);
+
+  }
+
+ 
+
+  getAlert(product){
+    this.selectedProduct=product;   
+    this.showChildModal()
 
   }
 
