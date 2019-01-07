@@ -101,7 +101,7 @@
         </div> -->
 
 
-    <div class="col text-center mt-1">
+    <div class="col text-center mt-1" *ngIf="!singleShopSelected">
       <!-- *ngIf="allData.length==0" -->
       <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
     </div>
@@ -111,12 +111,12 @@
 
     <div class="col-11 text-center">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
-     
+
     </div>
     <div class="col">
-        <button class="refresh-btn" title="clear all filters" (click)="clearAllFilters()">
-            <i class="fa fa-refresh fa-2x "[ngClass]="{'fa-spin':loadingData && allData.length>0}" ></i>
-          </button>
+      <button class="refresh-btn" title="clear all filters" (click)="clearAllFilters()">
+        <i class="fa fa-refresh fa-2x " [ngClass]="{'fa-spin':loadingData && allData.length>0}"></i>
+      </button>
     </div>
   </div>
   <div class="row" *ngIf="!singleShopSelected">
@@ -146,7 +146,7 @@
             </div>
           </div>
           <div class="image-div">
-            <img src="{{ip}}{{product.assetImageURL}}" [ngStyle]="getRandumHeightWidth()">
+            <img src="{{ip}}{{product.assetImageURL}}" style="width:100% !important" [ngStyle]="getRandumHeightWidth()">
 
           </div>
 
@@ -177,12 +177,27 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="singleShopSelected">
+    <div class="col text-center mt-1">
+      <!-- *ngIf="allData.length==0" -->
+      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+    </div>
+  </div>
+
   <div class="row text-center detail" *ngIf="singleShopSelected">
+
+
     <!-- <button type="button" class="btn btn-primary mb-3" (click)="getall()">
         <i class="fa fa-arrow-left"></i>
       </button> -->
+    <div class="col-6">
+
+      <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt="" class="img-thumbnail">
+
+    </div>
 
     <div class="col-6">
+      <!-- {{selelctedShop.shopId}} -->
       <table class="table text-justify">
         <tr>
           <button type="button" class="btn btn-primary mb-3" (click)="getall()">
@@ -193,26 +208,22 @@
           <th>{{item.heading}}</th>
           <td>{{item.value}}</td>
         </tr>
-        <!-- <tr>
-            <td>
-              <a class="btn btn-link">More Details</a>
-            </td>
-            <td></td>
-          </tr> -->
+        <tr>
+          <td (click)="detDetailProdutsForShop(selelctedShop)">
+            <a class="btn btn-link">More Details</a>
+          </td>
+          <td></td>
+        </tr>
       </table>
 
     </div>
-    <div class="col-6">
 
-      <img src="{{ip}}{{selelctedShop.shopImgURL}}" alt="" class="img-thumbnail">
-
-    </div>
 
 
   </div>
 
   <div class="row mt-4 " *ngIf="singleShopSelected">
-    <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
+    <div class="col-3 mb-4" *ngFor="let product of allDataSelectedShop | paginate: { itemsPerPage: 60, currentPage: p }">
       <mat-card class="example-card">
         <mat-card-header class="mb-1" (click)="getShop(product)">
           <!--  -->
@@ -225,8 +236,7 @@
             {{product.shopName | titlecase}}
           </mat-card-subtitle>
         </mat-card-header>
-        <img *ngIf="product.assetImageURL;" style="width:100% !important" mat-card-image src="{{ip}}{{product.assetImageURL}}"
-          alt="Product photo">
+        <img *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
         <img *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found"
           #noImageFound>
         <mat-card-content>
@@ -255,12 +265,12 @@
 
 
 
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+<div bsModal #productDetailModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- <div class="modal-header">
         <h4 id="dialog-child-name" class="modal-title pull-left">Child modal</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideproductDetailModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div> -->

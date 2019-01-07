@@ -110,4 +110,26 @@ isUserLoginIn(){
     );
 
   }
+
+  getDetailDataForShop(shopId:any){
+
+    let obj={      
+        shop_id:shopId,
+        survey_id:-1,
+        zone:'',
+        region:'',
+        city:'',
+        channel_name:'',
+        asset_name:'',
+        image_type:'',
+        
+    }
+
+
+    let url = this.ip+'clientShopFacia';
+    return this.http.post(url,JSON.stringify(obj) ).map(
+      response => response.json()
+    );
+
+  }
 }

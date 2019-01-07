@@ -3,7 +3,7 @@ import { GeneralService } from 'src/app/_service/general.service';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { NgxDrpOptions, PresetItem ,Range} from 'ngx-mat-daterange-picker';
+import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
 import { ModalDirective } from 'ngx-bootstrap';
 
 
@@ -13,18 +13,18 @@ import { ModalDirective } from 'ngx-bootstrap';
   styleUrls: ['./modren-body.component.css']
 })
 export class ModrenBodyComponent implements OnInit {
-  
+
   //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
 
-  @ViewChild('childModal') childModal: ModalDirective;
- 
-  showChildModal(): void {
-    this.childModal.show();
+  @ViewChild('productDetailModal') productDetailModal: ModalDirective;
+
+  showProductDetailModal(): void {
+    this.productDetailModal.show();
   }
- 
-  hideChildModal(): void {
-    this.childModal.hide();
+
+  hideProductDetailModal(): void {
+    this.productDetailModal.hide();
   }
   range: Range = { fromDate: new Date(), toDate: new Date() };
   options: NgxDrpOptions;
@@ -52,19 +52,20 @@ export class ModrenBodyComponent implements OnInit {
   myMessage: any;
   zones: any = [];
   selectedZone: any = {};
+  allDataSelectedShop: any = []
 
   regions: any = [];
   selectedRegion: any = {};
   cities: any = []
   selectedCity: any = {};
 
-  categories: any=[];
+  categories: any = [];
   selectedCategory = [];
 
   chanels: any = [];
   selectedChanel: any = {};
-  loadingData: boolean=true;
-  selectedProduct: any={};
+  loadingData: boolean = true;
+  selectedProduct: any = {};
 
   //#endregion
 
@@ -163,7 +164,22 @@ export class ModrenBodyComponent implements OnInit {
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
     console.log("shopes", filterData)
     if (filterData.length > 0)
-      this.allData = filterData;
+      this.allDataSelectedShop = filterData;
+  }
+
+  detDetailProdutsForShop(shop) {
+    this.loadingData=true;
+    this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
+      this.allDataSelectedShop = [];
+      this.allDataSelectedShop = data
+
+      setTimeout(() => {
+        this.loadingData=false;
+        
+      }, 6000);
+    }, error => {
+
+    })
   }
 
   categoryChange() {
@@ -200,7 +216,7 @@ export class ModrenBodyComponent implements OnInit {
   }
 
   filterAllData() {
-    this.loadingData=true;
+    this.loadingData = true;
     // this.allData = [];
     this.allData = this.allDataClone;
     let filterData: any = [];
@@ -232,16 +248,16 @@ export class ModrenBodyComponent implements OnInit {
     this.allData = filterData;
 
     setTimeout(() => {
-      this.loadingData=false;      
+      this.loadingData = false;
     }, 4000);
 
   }
 
- 
 
-  getAlert(product){
-    this.selectedProduct=product;   
-    this.showChildModal()
+
+  getAlert(product) {
+    this.selectedProduct = product;
+    this.showProductDetailModal()
 
   }
 
@@ -257,7 +273,7 @@ export class ModrenBodyComponent implements OnInit {
     })
   }
 
-  getCategoryName(product){
+  getCategoryName(product) {
 
     return product.assetItemList[0].value;
 
@@ -283,9 +299,9 @@ export class ModrenBodyComponent implements OnInit {
   chanelChange() {
     console.log("seelcted chanel", this.selectedChanel);
     this.filterAllData();
-    this.generalService.getCategories(this.selectedChanel).subscribe(data=>{
-      this.categories=data;
-    },error=>{})
+    this.generalService.getCategories(this.selectedChanel).subscribe(data => {
+      this.categories = data;
+    }, error => { })
 
 
   }
@@ -348,21 +364,21 @@ export class ModrenBodyComponent implements OnInit {
     });
   }
 
-  getRandumHeightWidth(){
+  getRandumHeightWidth() {
     // console.log('randum height',Math.floor(Math.random() * 40) + 300)
-    return {height:Math.floor(Math.random() * 200) + 100+'px',width:Math.floor(Math.random() * 400) + 200+'px'}
+    return { height: Math.floor(Math.random() * 200) + 100 + 'px', width: Math.floor(Math.random() * 400) + 200 + 'px' }
     // ;
   }
 
-  clearAllFilters(){
-    this.loadingData=true;
-    this.selectedZone={};
-    this.selectedRegion={};
-    this.selectedCity={};
-    this.selectedChanel={};
-    this.selectedCategory=[];
+  clearAllFilters() {
+    this.loadingData = true;
+    this.selectedZone = {};
+    this.selectedRegion = {};
+    this.selectedCity = {};
+    this.selectedChanel = {};
+    this.selectedCategory = [];
     setTimeout(() => {
-      this.loadingData=false;
+      this.loadingData = false;
     }, 3000);
   }
 
