@@ -172,11 +172,9 @@ export class ModrenBodyComponent implements OnInit {
     this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
       this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
+      this.loadingData=false;        
 
-      setTimeout(() => {
-        this.loadingData=false;
-        
-      }, 6000);
+      
     }, error => {
 
     })

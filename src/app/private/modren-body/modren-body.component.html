@@ -128,7 +128,7 @@
 
           <div class="row">
             <div class="col-3">
-              <img style="cursor: pointer;" (mouseenter)="getAlert(product)" src="{{ip}}{{product.shopImgURL}}" width="60"
+              <img style="cursor: pointer;" (click)="getAlert(product)" src="{{ip}}{{product.shopImgURL}}" width="80"
                 class="img-thumbnail rounded-circle borderShadow">
 
             </div>
@@ -209,7 +209,7 @@
           <td>{{item.value}}</td>
         </tr>
         <tr>
-          <td (click)="detDetailProdutsForShop(selelctedShop)">
+          <td style="cursor:pointer" (click)="detDetailProdutsForShop(selelctedShop)">
             <a class="btn btn-link">More Details</a>
           </td>
           <td></td>
@@ -222,6 +222,16 @@
 
   </div>
 
+
+  <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
+
+    <div class="col-11 text-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+  </div>
+
+
   <div class="row mt-4 " *ngIf="singleShopSelected">
     <div class="col-3 mb-4" *ngFor="let product of allDataSelectedShop | paginate: { itemsPerPage: 60, currentPage: p }">
       <mat-card class="example-card">
@@ -231,7 +241,7 @@
             <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
           </div>
           <mat-card-title style="cursor: pointer;" title="{{getCategoryName(product)}}">{{getCategoryName(product)
-            | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+            | slice:0:14 }} ({{product.imageType}})</mat-card-title>
           <mat-card-subtitle>
             {{product.shopName | titlecase}}
           </mat-card-subtitle>
@@ -258,6 +268,14 @@
                 <button mat-button>SHARE</button>
               </mat-card-actions> -->
       </mat-card>
+    </div>
+  </div>
+
+  <div class="row mt-3" *ngIf="allDataSelectedShop.length>0 && singleShopSelected">
+
+    <div class="col-11 text-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
     </div>
   </div>
 

@@ -126,7 +126,7 @@ isUserLoginIn(){
     }
 
 
-    let url = this.ip+'clientShopFacia';
+    let url = this.ip+'shopfacia-details';
     return this.http.post(url,JSON.stringify(obj) ).map(
       response => response.json()
     );
