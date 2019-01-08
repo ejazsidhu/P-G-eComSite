@@ -103,7 +103,6 @@
 
     <div class="col text-center mt-1" *ngIf="!singleShopSelected">
       <!-- *ngIf="allData.length==0" -->
-      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
     </div>
   </div>
 
@@ -180,7 +179,7 @@
   <div class="row" *ngIf="singleShopSelected">
     <div class="col text-center mt-1">
       <!-- *ngIf="allData.length==0" -->
-      <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+      <!-- <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i> -->
     </div>
   </div>
 
@@ -211,8 +210,12 @@
         <tr>
           <td style="cursor:pointer" (click)="detDetailProdutsForShop(selelctedShop)">
             <a class="btn btn-link">More Details</a>
+
           </td>
-          <td></td>
+          <td>
+            <i class="fa fa-circle-o-notch fa-spin fa-2x" style="color:lightskyblue" *ngIf="loadingData"></i>
+
+          </td>
         </tr>
       </table>
 
