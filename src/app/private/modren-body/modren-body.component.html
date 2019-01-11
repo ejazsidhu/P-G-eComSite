@@ -122,7 +122,7 @@
 
     <div class="col-12">
       <div class="masonry">
-        <div class="item" *ngFor="let product of allData |filter:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
+        <div class="item" *ngFor="let product of allData |filterBy:searchFilter | paginate: { itemsPerPage: 60, currentPage: p }">
 
           <p hidden>{{product.surveyId}}</p>
           <p hidden>{{product.shopId}}</p>
@@ -133,7 +133,8 @@
           <p hidden>{{product.srName}}</p>
           <div class="row">
             <div class="col-3">
-              <img style="cursor: pointer;" (click)="getAlert(product)" src="{{ip}}{{product.shopImgURL}}" width="80"
+                <!--  -->
+              <img style="cursor: pointer;" (click)="getAlert(product)"  src="{{ip}}{{product.shopImgURL}}" width="80"
                 class="img-thumbnail rounded-circle borderShadow">
 
             </div>
@@ -151,7 +152,7 @@
             </div>
           </div>
           <div class="image-div" (click)="getShop(product)">
-            <img src="{{ip}}{{product.assetImageURL}}" style="width:100% !important" [ngStyle]="getRandumHeightWidth()">
+            <img src="{{ip}}{{product.assetImageURL}}"  [ngStyle]="getRandumHeightWidth()">
 
           </div>
 
@@ -242,7 +243,7 @@
 
 
   <div class="row mt-4 " *ngIf="singleShopSelected">
-    <div class="col-3 mb-4" *ngFor="let product of allDataSelectedShop | paginate: { itemsPerPage: 60, currentPage: p }">
+    <div class="col-3 mb-4" *ngFor="let product of allDataSelectedShop |filter:searchFilter  | paginate: { itemsPerPage: 60, currentPage: p }">
       <mat-card class="example-card">
         <mat-card-header class="mb-1" (click)="getShop(product)">
           <!--  -->

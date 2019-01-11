@@ -226,7 +226,7 @@
         </div> -->
 
         <div class="row mt-4 " *ngIf="singleShopSelected">
-          <div class="col-3 mb-4" *ngFor="let product of allData | paginate: { itemsPerPage: 60, currentPage: p }">
+          <div class="col-3 mb-4" *ngFor="let product of allData |filter:searchFilter  | paginate: { itemsPerPage: 60, currentPage: p }">
             <mat-card class="example-card">
               <mat-card-header class="mb-1" (click)="getShop(product)">
                 <!--  -->

@@ -33,6 +33,7 @@ import { ModrenBodyComponent } from './modren-body/modren-body.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ModalModule } from 'ngx-bootstrap';
 
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 
@@ -63,6 +64,7 @@ import { ModalModule } from 'ngx-bootstrap';
     Ng2SearchPipeModule,
     NgxMatDrpModule,
     NgbModule,
+    FilterPipeModule,
 
     ModalModule.forRoot()
   ],

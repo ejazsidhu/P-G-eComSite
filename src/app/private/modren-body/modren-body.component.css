@@ -44,7 +44,7 @@ h1 {
       -webkit-box-sizing: border-box;
 
       box-shadow: 2px 5px 15px 3px #c4c4c4;
-      /* box-shadow: 2px 2px 4px 0 #ccc; */
+   
   }
 .refresh-btn{
     color: #089DE3 !important;
@@ -95,6 +95,8 @@ h1 {
           column-count: 5;
       }
   }
+
+
 
 
   .borderShadow{
