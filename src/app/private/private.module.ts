@@ -6,26 +6,26 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from '../public/layout/navbar/navbar.component';
 import { BodyComponent } from './body/body.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material';
-import {MatSelectModule} from '@angular/material/select';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
-import {NgxPaginationModule} from 'ngx-pagination';
-import {CalendarModule} from 'primeng/calendar';
-import {AccordionModule} from 'primeng/accordion';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {DropdownModule} from 'primeng/dropdown';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CalendarModule } from 'primeng/calendar';
+import { AccordionModule } from 'primeng/accordion';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxMatDrpModule } from 'ngx-mat-daterange-picker';
@@ -34,6 +34,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -54,8 +55,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     MatMenuModule,
     MatIconModule,
     MatExpansionModule,
-
-    
+    ScrollingModule,
     MultiSelectModule,
     DropdownModule,
     NgxPaginationModule,
