@@ -52,6 +52,7 @@ export class BodyComponent implements OnInit {
 
   chanels: any = [];
   selectedChanel: any = {};
+  wrongRange: boolean=false;
 
   //#endregion
 
@@ -108,7 +109,18 @@ export class BodyComponent implements OnInit {
 
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date currentRange', this.currentRange);
-    this.getData(this.currentRange);
+    if (s <= e) {
+      this.getData(this.currentRange);
+    }
+
+    else {
+      this.wrongRange = true;
+
+      setTimeout(() => {
+        this.wrongRange = false;
+
+      }, 4000);
+    }
     this.currentRange = JSON.parse(this.currentRange);
 
   }
@@ -129,13 +141,13 @@ export class BodyComponent implements OnInit {
     const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
 
-    this.presets = [
-      { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
-      { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
-      { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
-      { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
-      { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
-    ]
+    // this.presets = [
+    //   { presetLabel: "Yesterday", range: { fromDate: yesterday, toDate: today } },
+    //   { presetLabel: "Last 7 Days", range: { fromDate: minus7, toDate: today } },
+    //   { presetLabel: "Last 30 Days", range: { fromDate: minus30, toDate: today } },
+    //   { presetLabel: "This Month", range: { fromDate: currMonthStart, toDate: currMonthEnd } },
+    //   { presetLabel: "Last Month", range: { fromDate: lastMonthStart, toDate: lastMonthEnd } }
+    // ]
   }
   // #endregion
 
@@ -186,86 +198,117 @@ export class BodyComponent implements OnInit {
 
   }
 
-  filterAllData() {
-    this.loadingData=true;      
+  // filterAllData() {
+  //   this.loadingData=true;      
 
-    // this.allData = [];
-    this.allData = this.allDataClone;
-    let filterData: any = [];
-    let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
-    let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
-    let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
-    let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
+  //   // this.allData = [];
+  //   this.allData = this.allDataClone;
+  //   let filterData: any = [];
+  //   let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
+  //   let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
+  //   let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
+  //   let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
 
-    console.log("current zone is", zone)
-    console.log("current region is", region)
-    console.log("current city is", city)
+  //   console.log("current zone is", zone)
+  //   console.log("current region is", region)
+  //   console.log("current city is", city)
 
-    let i = 0;
-    this.allData.forEach(e => {
-      if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone);
+  //   let i = 0;
+  //   this.allData.forEach(e => {
+  //     if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone);
 
-      if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
+  //     if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
 
-      if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
+  //     if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
 
-      if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
-        filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
+  //     if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
+  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
 
-    });
+  //   });
 
-    this.allData = filterData;
+  //   this.allData = filterData;
 
-    setTimeout(() => {
-      this.loadingData=false;      
-    }, 4000);
+  //   setTimeout(() => {
+  //     this.loadingData=false;      
+  //   }, 4000);
 
-  }
+  // }
 
   zoneChange() {
-    console.log('selected zone', this.selectedZone);
-    this.filterAllData();
+    this.loadingData = true;
+
+    this.allData = this.allDataClone;
+
+    // console.log('selected zone', this.selectedZone, this.allData[0]);
+    let filterData: any = [];
 
     this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
       this.regions = data;
+      // this.filterAllData();
+
 
     }, error => {
 
-    })
+    });
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+
+    // console.log("after zone selected", filterData)
+
+    this.allData = filterData;
+
+
   }
 
   getCategoryName(product) {
 
-    return product.assetItemList[0].value;
+    return product.assetName;//product.assetItemList[0].value;
 
   }
 
   regionChange() {
+    this.loadingData = true;
+
+    this.allData = this.allDataClone;
+    let filterData: any = [];
     console.log('regions id', this.selectedRegion);
-    this.filterAllData();
     this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
       this.cities = data[0];
       console.log('cities list', data);
       this.chanels = data[1];
+      // this.filterAllData();
+
     }, error => {
 
-    })
+    });
+
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+    this.allData = filterData;
   }
 
   cityChange() {
-    console.log("seelcted city", this.selectedCity);
-    this.filterAllData();
+    this.loadingData = true;
+    // console.log("seelcted city", this.selectedCity);
+    this.allData = this.allDataClone;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
+    this.allData = filterData;
+
   }
 
   chanelChange() {
     console.log("seelcted chanel", this.selectedChanel);
-    this.filterAllData();
     this.generalService.getCategories(this.selectedChanel).subscribe(data => {
       this.categories = data;
-    }, error => { })
+      // this.filterAllData();
+
+    }, error => { });
+    this.allData = this.allDataClone;
+    let filterData: any = [];
+    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    this.allData = filterData;
 
 
   }
@@ -298,11 +341,12 @@ export class BodyComponent implements OnInit {
     this.selectedRegion = {};
     this.selectedCategory = [];
     this.selectedZone = {};
+    this.loadingData=true;
 
     this.generalService.getDataByDateRange(range).subscribe(data => {
-      this.allData = data;
+      this.allData =data;
       this.allDataClone = this.allData.slice();
-      // console.log(this.allData);
+      console.log(this.allData[0]);
       if (this.allData.length == 0) {
         this.successTrigger = true;
         this.myMessage = 'No Data Found';

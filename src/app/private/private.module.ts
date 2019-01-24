@@ -36,6 +36,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 
@@ -48,6 +49,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     PrivateRoutingModule,
     // BrowserAnimationsModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
@@ -66,7 +68,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     NgbModule,
     FilterPipeModule,
 
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    
   ],
   declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent, UserProfileComponent]
 })

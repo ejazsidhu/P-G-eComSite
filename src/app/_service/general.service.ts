@@ -26,7 +26,9 @@ isUserLoginIn(){
 }
 
   headerCTJson() {
-    let header = new Headers({'userId':localStorage.getItem('Authorized')})
+    let header = new Headers({'content-type':'application/json'});
+    // header.append("userId",'80')
+    // let header = new Headers({'userId':localStorage.getItem('Authorized')})
     // new Headers({ 'Access-Control-Allow-Origin': '*',
     // 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
     // 'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
