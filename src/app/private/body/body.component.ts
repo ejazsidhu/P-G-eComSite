@@ -163,6 +163,9 @@ export class BodyComponent implements OnInit {
     console.log("shopes", filterData)
     if (filterData.length > 0)
       this.allData = filterData;
+
+      window.scroll(0,0);
+
   }
 
   categoryChange() {
