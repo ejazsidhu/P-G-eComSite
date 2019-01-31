@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgxDrpOptions, PresetItem, Range } from 'ngx-mat-daterange-picker';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-body',
@@ -15,6 +16,8 @@ export class BodyComponent implements OnInit {
 
   //#region variables
   @ViewChild('dateRangePicker') dateRangePicker;
+  @ViewChild('productDetailModal') productDetailModal: ModalDirective;
+
   range: Range = { fromDate: new Date(), toDate: new Date() };
   options: NgxDrpOptions;
   presets: Array<PresetItem> = [];
@@ -53,18 +56,14 @@ export class BodyComponent implements OnInit {
   chanels: any = [];
   selectedChanel: any = {};
   wrongRange: boolean=false;
+  filterData: any[]=[];
+  selectedProduct: any={};
+  allDataSelectedShop: any[]=[];
+  imageLoading=false;
 
   //#endregion
 
-  constructor(private route: ActivatedRoute, private generalService: GeneralService) {
-
-    // this.categories = [
-    //   { key: 'Gillette', value: 'Gillette' },
-    //   { key: 'Laundry', value: 'Laundry' },
-    //   { key: 'H&S', value: 'H&S' }
-    // ];
-
-  }
+  constructor(private route: ActivatedRoute, private generalService: GeneralService) {  }
 
   ngOnInit() {
     this.getZoneList();
@@ -162,7 +161,7 @@ export class BodyComponent implements OnInit {
     filterData = this.allData.filter(d => d.shopId === shop.shopId);
     console.log("shopes", filterData)
     if (filterData.length > 0)
-      this.allData = filterData;
+      this.allDataSelectedShop = filterData;
 
       window.scroll(0,0);
 
@@ -201,67 +200,25 @@ export class BodyComponent implements OnInit {
 
   }
 
-  // filterAllData() {
-  //   this.loadingData=true;      
-
-  //   // this.allData = [];
-  //   this.allData = this.allDataClone;
-  //   let filterData: any = [];
-  //   let zone = (this.selectedZone != {}) ? this.selectedZone.title : '';
-  //   let region = (this.selectedRegion != {}) ? this.selectedRegion.title : '';
-  //   let city = (this.selectedCity != {}) ? this.selectedCity.title : '';
-  //   let chanel = (this.selectedChanel != {}) ? this.selectedChanel.title : '';
-
-  //   console.log("current zone is", zone)
-  //   console.log("current region is", region)
-  //   console.log("current city is", city)
-
-  //   let i = 0;
-  //   this.allData.forEach(e => {
-  //     if (zone != undefined && region == undefined && city == undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone);
-
-  //     if (zone != undefined && region != undefined && city == undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && chanel == undefined);
-
-  //     if (zone != undefined && region != undefined && city != undefined && chanel == undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city);
-
-  //     if (zone != undefined && region != undefined && city != undefined && chanel != undefined)
-  //       filterData = this.allData.filter(d => d.zone === zone && d.region === region && d.city === city && d.channelName === chanel);
-
-  //   });
-
-  //   this.allData = filterData;
-
-  //   setTimeout(() => {
-  //     this.loadingData=false;      
-  //   }, 4000);
-
-  // }
 
   zoneChange() {
     this.loadingData = true;
-
+    this.regions=[];
+    this.cities=[];
+    this.chanels=[];
     this.allData = this.allDataClone;
-
     // console.log('selected zone', this.selectedZone, this.allData[0]);
-    let filterData: any = [];
+    this.filterData = [];
 
     this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
       this.regions = data;
       // this.filterAllData();
-
-
     }, error => {
 
     });
-    filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
-
-    // console.log("after zone selected", filterData)
-
-    this.allData = filterData;
-
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+    this.allData = this.filterData;
+    this.loadingData=false;
 
   }
 
@@ -275,59 +232,63 @@ export class BodyComponent implements OnInit {
     this.loadingData = true;
 
     this.allData = this.allDataClone;
-    let filterData: any = [];
-    console.log('regions id', this.selectedRegion);
+    this.filterData= [];
+    // console.log('regions id', this.selectedRegion);
     this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
       this.cities = data[0];
-      console.log('cities list', data);
+      // console.log('cities list', data);
       this.chanels = data[1];
       // this.filterAllData();
-
     }, error => {
-
     });
-
-    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
-    this.allData = filterData;
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+    this.allData = this.filterData;
+    this.loadingData=false;
   }
 
   cityChange() {
     this.loadingData = true;
     // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
-    let filterData: any = [];
-    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
-    this.allData = filterData;
+    this.filterData= [];
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
+    this.allData = this.filterData;
+    this.loadingData=false;
 
   }
 
   chanelChange() {
-    console.log("seelcted chanel", this.selectedChanel);
+    // console.log("seelcted chanel", this.selectedChanel);
     this.generalService.getCategories(this.selectedChanel).subscribe(data => {
       this.categories = data;
       // this.filterAllData();
 
     }, error => { });
     this.allData = this.allDataClone;
-    let filterData: any = [];
-    filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
-    this.allData = filterData;
+    this.filterData= [];
+    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    this.allData = this.filterData;
 
 
   }
 
   getall() {
-    this.allData = this.allDataClone;
     this.singleShopSelected = false;
-  }
+
+    if(this.filterData.length>0)
+    this.allData = this.filterData;
+    
+    else
+     this.allData=this.allDataClone;
+}
 
 
   getZoneList() {
     this.generalService.getZone().subscribe(data => {
-      console.log('zone list', data)
+      // console.log('zone list', data)
       this.zones = data;
     }, error => {
-      console.log("zone list error", error);
+      // console.log("zone list error", error);
       // let er = JSON.parse(error._body)
       // this.myMessage = er.description//'Username OR password is invalid.';
       // this.errorTrigger = true;
@@ -362,7 +323,7 @@ export class BodyComponent implements OnInit {
       }, 10000);
 
     }, error => {
-      console.log(error);
+      // console.log(error);
       // let er = JSON.parse(error._body)
       // this.myMessage = er.description//'Username OR password is invalid.';
       // this.errorTrigger = true;
@@ -379,6 +340,38 @@ export class BodyComponent implements OnInit {
     // console.log('randum height',Math.floor(Math.random() * 40) + 300)
     return { height: Math.floor(Math.random() * 200) + 100 + 'px', width: Math.floor(Math.random() * 400) + 200 + 'px' }
     // ;
+  }
+
+  getAlert(product) {
+    this.selectedProduct = product;
+    this.showProductDetailModal();
+    this.imageLoading=true;
+    setTimeout(() => {
+
+      this.imageLoading=false;
+      
+    }, 3000);
+  }
+
+  showProductDetailModal(): void {
+    this.productDetailModal.show();
+  }
+
+  hideProductDetailModal(): void {
+    this.productDetailModal.hide();
+  }
+
+  detDetailProdutsForShop(shop) {
+    this.loadingData=true;
+    this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
+      this.allDataSelectedShop = [];
+      this.allDataSelectedShop = data
+      this.loadingData=false;        
+
+      
+    }, error => {
+
+    })
   }
 
 }
