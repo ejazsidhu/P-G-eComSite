@@ -350,7 +350,7 @@ export class BodyComponent implements OnInit {
 
       this.imageLoading=false;
       
-    }, 3000);
+    }, 2000);
   }
 
   showProductDetailModal(): void {
