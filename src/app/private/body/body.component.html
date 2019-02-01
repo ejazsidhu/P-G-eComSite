@@ -1,7 +1,7 @@
 <div class="container-fluid body">
 
 <!-- //filters -->
-  <div class="row" >
+  <div class="row" *ngIf="!singleShopSelected" >
     <div class="col-md-2  col-sm-12 mt-2">
       <mat-form-field>
         <input matInput placeholder="advance search here..." [(ngModel)]="searchFilter">
@@ -338,8 +338,8 @@
         <div>
 
             <h2>
-                {{getCategoryName(selectedProduct)
-                  | slice:0:22 }} ({{selectedProduct.imageType}})
+                {{getCategoryName(selectedProduct)}}
+                 <!-- ({{selectedProduct.imageType}}) -->
               </h2>
           <h4>
             {{selectedProduct.shopName}} 
