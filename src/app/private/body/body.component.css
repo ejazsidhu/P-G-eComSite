@@ -36,13 +36,18 @@ cdk-virtual-scroll-viewport>div.cardItem{
   .ui-dropdown{
     width: 300px
   }
+
+  img.small{
+    cursor: pointer;
+  }
   .ui-datepicker-trigger{
 height: 34px !important;
   }
 
-   mat-card.main:hover{
+  .deta:hover{
     background-color: #b1dcfc;
     cursor: pointer;
+    margin: -10px;
 
   }
 
