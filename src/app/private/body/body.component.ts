@@ -68,14 +68,16 @@ export class BodyComponent implements OnInit {
   ngOnInit() {
     this.getZoneList();
     var d = new Date();
-    var s = moment(d).subtract(2, 'day').format('YYYY-MM-DD');
+    var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     this.currentRange = JSON.stringify({ startDate: s, endDate: e });
     console.log('contructor date range', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
 
+    var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     const today = new Date();
+    today.setDate(today.getDate()-1);
     const fromMin = new Date(today.getFullYear(), today.getMonth() - 2, 1);
     const fromMax = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const toMin = new Date(today.getFullYear(), today.getMonth() - 1, 1);
@@ -364,6 +366,8 @@ export class BodyComponent implements OnInit {
   detDetailProdutsForShop(shop) {
     this.loadingData=true;
     this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
+      console.log('selected data ',data)
+
       this.allDataSelectedShop = [];
       this.allDataSelectedShop = data
       this.loadingData=false;        
