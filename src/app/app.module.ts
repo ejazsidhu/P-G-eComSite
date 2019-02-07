@@ -12,6 +12,8 @@ import{HttpModule} from '@angular/http'
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './public/page-not-found/page-not-found.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ShopDetailComponent } from './private/shop-detail/shop-detail.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 BrowserModule
@@ -19,7 +21,8 @@ BrowserModule
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ShopDetailComponent
     
   ],
   imports: [
@@ -29,7 +32,9 @@ BrowserModule
     AppRoutingModule,
     NgbModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+
     
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },],

@@ -42,6 +42,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -71,6 +72,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ModalModule.forRoot(),
     
   ],
-  declarations: [HomeComponent, NavbarComponent, BodyComponent, ModrenBodyComponent, UserProfileComponent]
+  declarations: [HomeComponent,
+     NavbarComponent, BodyComponent
+     , ModrenBodyComponent, 
+     UserProfileComponent, ]
 })
 export class PrivateModule { }
