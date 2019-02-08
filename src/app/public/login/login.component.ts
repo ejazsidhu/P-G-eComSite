@@ -52,10 +52,10 @@ export class LoginComponent {
     }, error => {
       // localStorage.clear();
       this.changeClass = false;
-      console.log('error', error);
-      if (error.status == 0) {
+      console.log('error', error.status);
+      if (error.status == 0 || error.status==500) {
 
-        this.myMessage = 'please check internet connection';
+        this.myMessage = 'Internal Server Error';//'please check internet connection';
         this.errorTrigger = true;
         this.changeClass = false;
 

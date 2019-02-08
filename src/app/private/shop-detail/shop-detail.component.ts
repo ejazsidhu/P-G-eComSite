@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { GeneralService } from 'src/app/_service/general.service';
 import { ModalDirective } from 'ngx-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shop-detail',
@@ -20,12 +21,29 @@ export class ShopDetailComponent implements OnInit {
   ip = environment.ip;
   loadingData: boolean=false;
   imageLoading: boolean=false;
-  constructor(private generalService:GeneralService) { }
+  constructor(private generalService:GeneralService,private route:ActivatedRoute) { }
 
   ngOnInit() {
 
     this.allDataSelectedShop=JSON.parse(localStorage.getItem('allDataSelectedShop'));
-    this.selelctedShop=JSON.parse(localStorage.getItem('selelctedShop'))
+    this.selelctedShop=JSON.parse(localStorage.getItem('selelctedShop'));
+    console.log(this.selelctedShop)
+    this.route.params.subscribe(p=>{
+      let id=+p['id'];
+    console.log(id)
+
+      if(!this.selelctedShop){
+      this.loadingData=true;
+        this.getDetailProdutsForShop(id);
+      // localStorage.clear();
+      }
+
+     else if(this.selelctedShop.shopId!=id){
+        this.loadingData=true;
+          this.getDetailProdutsForShop(id);
+        localStorage.clear();
+        }
+    })
 
   }
   getCategoryName(product) {
@@ -33,15 +51,19 @@ export class ShopDetailComponent implements OnInit {
     return product.assetName;
 
   }
-  detDetailProdutsForShop(shop) {
-    console.log('selected SHOP ',shop)
+  getDetailProdutsForShop(shopId) {
+    console.log('selected shopId ',shopId)
 
     this.loadingData=true;
-    this.generalService.getDetailDataForShop(shop.shopId).subscribe(data => {
+    this.generalService.getDetailDataForShop(shopId).subscribe(data => {
       console.log('selected data ',data)
 
       this.allDataSelectedShop = [];
-      this.allDataSelectedShop = data
+      this.allDataSelectedShop = data;
+      
+      if(this.allDataSelectedShop.length>0)
+      this.selelctedShop=this.allDataSelectedShop[0];
+
       this.loadingData=false;        
 
       
