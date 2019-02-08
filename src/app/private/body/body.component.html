@@ -123,7 +123,7 @@
                     <div mat-card-avatar class="example-header-image"   >
                       <img  src="{{ip}}{{product.shopImgURL}}"  width="50" class="rounded-circle">
                     </div>
-                    <mat-card-title  style="white-space: nowrap;word-wrap: break-word;" >{{getCategoryName(product)
+                    <mat-card-title  style="word-wrap: break-word;" >{{getCategoryName(product)
                       | slice:0:14 }} ({{product.imageType}})  </mat-card-title>
                     <mat-card-subtitle>
                       {{product.shopName | titlecase}}
@@ -145,7 +145,7 @@
                       </tr>
                       <tr>
                         <th>Address:</th>
-                        <td>{{product.address}}</td>
+                        <td  style="word-wrap: break-word;">{{product.address}}</td>
                       </tr>
                     </table>
                   </mat-card-content>
