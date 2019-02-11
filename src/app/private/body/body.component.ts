@@ -442,8 +442,7 @@ export class BodyComponent implements OnInit {
       this.allData=this.allDataClone;
 
     }
-
-    
+   
   }
 
 }
