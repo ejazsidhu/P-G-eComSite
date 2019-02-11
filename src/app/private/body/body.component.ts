@@ -49,10 +49,8 @@ export class BodyComponent implements OnInit {
   selectedRegion: any = {};
   cities: any = []
   selectedCity: any = {};
-
   categories: any = [];
   selectedCategory = [];
-
   chanels: any = [];
   selectedChanel: any = {};
   wrongRange: boolean=false;
@@ -176,6 +174,45 @@ export class BodyComponent implements OnInit {
 
     window.open('/#/shop/'+shop.shopId,'_blank')
 
+  }
+
+  getAllDataClassification(shopClassification:string){
+
+    console.log(shopClassification);
+    console.log('all data',this.allData);
+    console.log('filter data',this.filterData);
+    // this.allData = this.allDataClone;
+
+    if(this.filterData.length==0 && this.allData.length>0)
+    {
+       this.allData=this.allDataClone
+    
+    }
+    else if(this.filterData.length>0){
+      this.allData=this.filterData
+
+    }
+
+   if(shopClassification == '') {
+      this.allData=this.allDataClone
+    }
+    else if(shopClassification != ''){
+      let d= this.allData.filter(d => d.shopClassification === shopClassification);
+      this.allData = d;
+    }
+
+    
+    
+      // this.filterData= [];
+
+  
+      // 
+     
+      
+    
+   
+
+    
   }
 
   categoryChange() {
@@ -387,6 +424,26 @@ export class BodyComponent implements OnInit {
     }, error => {
 
     })
+  }
+
+  getSuperSearch(search:string){
+    console.log(search);
+    
+    if(search.length>1){
+    this.loadingData=true;
+
+      this.generalService.getSuperSearch(search).subscribe(data=>{
+        console.log('search date',data)
+        this.allData=data;
+        this.loadingData=false;
+      },error=>{});
+    }
+    else if(search.length<=1){
+      this.allData=this.allDataClone;
+
+    }
+
+    
   }
 
 }

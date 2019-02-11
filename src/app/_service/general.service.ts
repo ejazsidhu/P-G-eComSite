@@ -134,4 +134,25 @@ isUserLoginIn(){
     );
 
   }
+
+  getSuperSearch(search:String){
+
+    let obj={      
+        shop_name:search,
+        zone:'',
+        region:'',
+        city:'',
+        channel_name:'',
+        asset_name:'',
+        image_type:'',
+        
+    }
+
+
+    let url = this.ip+'shopfacia-details';
+    return this.http.post(url,JSON.stringify(obj) ).map(
+      response => response.json()
+    );
+
+  }
 }
