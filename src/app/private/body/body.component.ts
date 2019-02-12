@@ -152,9 +152,9 @@ export class BodyComponent implements OnInit {
 
   getShop(shop) {
 
-    console.log(shop);
-    this.allData = [];
-    this.allData = this.allDataClone;
+    // console.log(shop);
+    // this.allData = [];
+    // this.allData = this.allDataClone;
     // this.singleShopSelected = true;
     this.selelctedShop = shop;
     localStorage.setItem('selelctedShop',JSON.stringify(this.selelctedShop))
