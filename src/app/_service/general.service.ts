@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { environment } from 'src/environments/environment';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,26 @@ export class GeneralService {
 
   isUserExist=false;
   ip=environment.ip;
+   httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'userId': 'my-auth-token'
+    })
+  };
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private httpClient:HttpClient) {
 
     let user=localStorage.getItem('Authorized');
     if(user){
       this.isUserExist=true;
     }
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'userId': user
+      })
+    };
 
 
    }
@@ -49,9 +63,7 @@ isUserLoginIn(){
     let url = this.ip+'clientShopFacia';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url, range).map(
-      response => response.json()
-    );
+    return this.httpClient.post(url, range,this.httpOptions);
 
 
   }
@@ -72,44 +84,33 @@ isUserLoginIn(){
   getZone(){
     var filter=JSON.stringify({act:0});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
-    const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter).map(
-      response => response.json()
-    );
+
+    return this.httpClient.post(url,filter,this.httpOptions)
+   
+    // return this.http.post(url,filter).map(
+    //   response => response.json()
+    // );
 
   }
 
   getRegion(zoneId){
     var filter=JSON.stringify({act:1,zoneId:zoneId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
-    const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter ).map(
-      response => response.json()
-    );
+       return this.httpClient.post(url,filter,this.httpOptions)
 
   }
 
   getCities(regionId){
     var filter=JSON.stringify({act:2,regionId:regionId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
-    const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter ).map(
-      response => response.json()
-    );
+    return this.httpClient.post(url,filter,this.httpOptions)
 
   }
 
   getCategories(channelId){
     var filter=JSON.stringify({act:3,channelId:channelId});
     let url = this.ip+'loadFilters';
-    let httpOption = this.headerCTJson();
-    const option = new RequestOptions({ headers: httpOption });
-    return this.http.post(url,filter ).map(
-      response => response.json()
-    );
+    return this.httpClient.post(url,filter,this.httpOptions)
 
   }
 

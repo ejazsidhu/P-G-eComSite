@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './public/page-not-found/page-not-found.co
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ShopDetailComponent } from './private/shop-detail/shop-detail.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 
 BrowserModule
@@ -28,6 +29,7 @@ BrowserModule
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     NgbModule,

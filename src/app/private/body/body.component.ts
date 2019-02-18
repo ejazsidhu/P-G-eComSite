@@ -58,6 +58,8 @@ export class BodyComponent implements OnInit {
   selectedProduct: any={};
   allDataSelectedShop: any[]=[];
   imageLoading=false;
+  channelName: string='';
+  filterDataClone: any[]=[];
 
   //#endregion
 
@@ -176,43 +178,30 @@ export class BodyComponent implements OnInit {
 
   }
 
-  getAllDataClassification(shopClassification:string){
+  getAllDataClassification(channelName:string){
 
-    console.log(shopClassification);
-    console.log('all data',this.allData);
-    console.log('filter data',this.filterData);
+    console.log(channelName);
+    
+    // console.log('filter data',this.filterData);
     // this.allData = this.allDataClone;
+    this.channelName = channelName;
+    this.allData = []
 
-    if(this.filterData.length==0 && this.allData.length>0)
-    {
-       this.allData=this.allDataClone
-    
-    }
-    else if(this.filterData.length>0){
-      this.allData=this.filterData
+    if (this.filterData.length == 0) {
 
-    }
-
-   if(shopClassification == '') {
-      this.allData=this.allDataClone
-    }
-    else if(shopClassification != ''){
-      let d= this.allData.filter(d => d.shopClassification === shopClassification);
+      let d = this.allDataClone.filter(d => d.channelName === channelName);
       this.allData = d;
+
+    }
+    else if (this.filterData.length > 0) {
+      let d = this.filterData.filter(d => d.channelName === channelName);
+      this.allData = d;
+
     }
 
-    
-    
-      // this.filterData= [];
+    console.log('all data',this.allData);
 
-  
-      // 
-     
-      
-    
-   
-
-    
+        
   }
 
   categoryChange() {
@@ -250,24 +239,32 @@ export class BodyComponent implements OnInit {
 
 
   zoneChange() {
-    this.loadingData = true;
-    this.regions=[];
-    this.cities=[];
-    this.chanels=[];
+    // debugger
+    this.regions = [];
+    this.cities = [];
+    this.chanels = [];
+    // this.loadingData = true;
     this.allData = this.allDataClone;
-    // console.log('selected zone', this.selectedZone, this.allData[0]);
+    console.log('selected zone', this.selectedZone);
     this.filterData = [];
-
     this.generalService.getRegion(this.selectedZone.id).subscribe(data => {
       this.regions = data;
       // this.filterAllData();
     }, error => {
 
     });
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
-    this.allData = this.filterData;
-    this.loadingData=false;
+    if (this.channelName)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.channelName == this.channelName);
 
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
+      this.filterDataClone = this.filterData;
+      
+    }
+
+
+    this.allData = this.filterData;
+    this.loadingData = false;
   }
 
   getCategoryName(product) {
@@ -280,41 +277,70 @@ export class BodyComponent implements OnInit {
     this.loadingData = true;
 
     this.allData = this.allDataClone;
-    this.filterData= [];
+    this.filterData = [];
     // console.log('regions id', this.selectedRegion);
     this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
       this.cities = data[0];
       // console.log('cities list', data);
       this.chanels = data[1];
       // this.filterAllData();
+
     }, error => {
+
     });
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+
+
+    if (this.channelName)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title && d.channelName == this.channelName);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region == this.selectedRegion.title);
+      this.filterDataClone = this.filterData;
+    }
+
+
     this.allData = this.filterData;
-    this.loadingData=false;
+    this.loadingData = false;
+
   }
 
   cityChange() {
     this.loadingData = true;
     // console.log("seelcted city", this.selectedCity);
     this.allData = this.allDataClone;
-    this.filterData= [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title);
+    this.filterData = [];
+
+    if (this.channelName)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.channelName);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && (d.city == this.selectedCity.title));
+      this.filterDataClone = this.filterData;
+    }
+
     this.allData = this.filterData;
-    this.loadingData=false;
+    this.loadingData = false;
 
   }
 
   chanelChange() {
-    // console.log("seelcted chanel", this.selectedChanel);
-    this.generalService.getCategories(this.selectedChanel).subscribe(data => {
-      this.categories = data;
-      // this.filterAllData();
+  // console.log("seelcted chanel", this.selectedChanel);
+    // this.generalService.getCategories(this.selectedChanel,this.uId).subscribe(data => {
+    //   this.categories = data;
+    //   // this.filterAllData();
 
-    }, error => { });
+    // }, error => { });
     this.allData = this.allDataClone;
-    this.filterData= [];
-    this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.city == this.selectedCity.title && d.channelName == this.selectedChanel.title);
+    this.filterData = [];
+    // console.log(this.allData[0])
+
+    if (this.channelName)
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.areaPmpkl == this.selectedChanel.areaPmpkl && d.channelName == this.channelName);
+
+    else {
+      this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title && d.region === this.selectedRegion.title && d.areaPmpkl == this.selectedChanel.areaPmpkl);
+      this.filterDataClone = this.filterData;
+    }
     this.allData = this.filterData;
 
 
@@ -443,6 +469,67 @@ export class BodyComponent implements OnInit {
 
     }
    
+  }
+
+  clearFilter(filter: string) {
+    debugger
+
+    if (filter == 'all' || filter == 'selectedZone') {
+
+      this.filterData = [];
+      this.allData = this.allDataClone;
+
+      this.selectedZone = {};
+      this.selectedRegion = {};
+      this.selectedChanel = {};
+      this.selectedCity = {};
+
+      this.regions = [];
+      this.chanels = [];
+      this.cities = [];
+      if (filter == 'all'&& this.channelName) {
+        this.channelName = '';   
+            
+      }
+      // else {
+      //   this.getAllDataClassification(this.channelName)
+      // }
+    }
+    else if (filter == 'selectedRegion') {
+
+      this.selectedRegion = {};
+      this.selectedChanel = {};
+      this.selectedCity = {};
+      this.chanels = [];
+      this.cities = [];
+      this.zoneChange()
+
+    }
+    else if (filter == 'selectedChanel') {
+      this.selectedChanel = {};
+      this.regionChange()
+
+    }
+
+    else if (filter == 'selectedCity') {
+
+      this.selectedCity = {};
+      this.regionChange()
+
+    }
+
+    else if (filter == 'channelName') {
+      // debugger
+
+      this.channelName = '';
+      if (this.selectedZone !={} || this.selectedRegion !={} || this.selectedChanel !={}  || this.selectedCity !={})
+        this.allData = this.filterDataClone;
+
+        else
+        this.allData=this.allDataClone
+
+    }
+
   }
 
 }
