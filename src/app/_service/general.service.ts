@@ -17,18 +17,19 @@ export class GeneralService {
       'userId': 'my-auth-token'
     })
   };
-
+user:any=0;
   constructor(private http: Http,private httpClient:HttpClient) {
 
-    let user=localStorage.getItem('Authorized');
-    if(user){
-      this.isUserExist=true;
+  let u=JSON.parse(localStorage.getItem('Authorized'));
+    if(u){
+      this.user=u.user_id;
+    
     }
 
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'userId': user
+        'userId': this.user
       })
     };
 
@@ -63,7 +64,7 @@ isUserLoginIn(){
     let url = this.ip+'clientShopFacia';
     let httpOption = this.headerCTJson();
     const option = new RequestOptions({ headers: httpOption });
-    return this.httpClient.post(url, range,this.httpOptions);
+    return this.httpClient.post(url, range);
 
 
   }
@@ -82,10 +83,10 @@ isUserLoginIn(){
   }
 
   getZone(){
-    var filter=JSON.stringify({act:0});
+    var filter=JSON.stringify({act:0,userId:this.user});
     let url = this.ip+'loadFilters';
 
-    return this.httpClient.post(url,filter,this.httpOptions)
+    return this.httpClient.post(url,filter)
    
     // return this.http.post(url,filter).map(
     //   response => response.json()
@@ -94,23 +95,23 @@ isUserLoginIn(){
   }
 
   getRegion(zoneId){
-    var filter=JSON.stringify({act:1,zoneId:zoneId});
+    var filter=JSON.stringify({act:1,zoneId:zoneId,userId:this.user});
     let url = this.ip+'loadFilters';
-       return this.httpClient.post(url,filter,this.httpOptions)
+       return this.httpClient.post(url,filter)
 
   }
 
   getCities(regionId){
-    var filter=JSON.stringify({act:2,regionId:regionId});
+    var filter=JSON.stringify({act:2,regionId:regionId,userId:this.user});
     let url = this.ip+'loadFilters';
-    return this.httpClient.post(url,filter,this.httpOptions)
+    return this.httpClient.post(url,filter)
 
   }
 
   getCategories(channelId){
-    var filter=JSON.stringify({act:3,channelId:channelId});
+    var filter=JSON.stringify({act:3,channelId:channelId,userId:this.user});
     let url = this.ip+'loadFilters';
-    return this.httpClient.post(url,filter,this.httpOptions)
+    return this.httpClient.post(url,filter)
 
   }
 
@@ -146,6 +147,7 @@ isUserLoginIn(){
         channel_name:'',
         asset_name:'',
         image_type:'',
+        userId:this.user
         
     }
 

@@ -60,17 +60,23 @@ export class BodyComponent implements OnInit {
   imageLoading=false;
   channelName: string='';
   filterDataClone: any[]=[];
+  user:any
 
   //#endregion
 
   constructor(private route: ActivatedRoute, private generalService: GeneralService) {  }
 
   ngOnInit() {
+    let u=JSON.parse(localStorage.getItem('Authorized'));
+    if(u){
+      this.user=u.user_id;
+    
+    }
     this.getZoneList();
     var d = new Date();
     var s = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
     var e = moment(d).subtract(1, 'day').format('YYYY-MM-DD');
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.user });
     console.log('contructor date range', this.currentRange);
     this.getData(this.currentRange);
     this.currentRange = JSON.parse(this.currentRange)
@@ -108,7 +114,7 @@ export class BodyComponent implements OnInit {
     var s = moment(this.range.fromDate).format('YYYY-MM-DD');
     var e = moment(this.range.toDate).format('YYYY-MM-DD');
 
-    this.currentRange = JSON.stringify({ startDate: s, endDate: e });
+    this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.user });
     console.log('contructor date currentRange', this.currentRange);
     if (s <= e) {
       this.getData(this.currentRange);
@@ -258,7 +264,7 @@ export class BodyComponent implements OnInit {
 
     else {
       this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
-      this.filterDataClone = this.filterData;
+      this.filterData || this.filterDataClone = this.filterData;
       
     }
 
@@ -519,11 +525,11 @@ export class BodyComponent implements OnInit {
     }
 
     else if (filter == 'channelName') {
-      // debugger
+      debugger
 
       this.channelName = '';
-      if (this.selectedZone !={} || this.selectedRegion !={} || this.selectedChanel !={}  || this.selectedCity !={})
-        this.allData = this.filterDataClone;
+      if (this.selectedZone  || this.selectedRegion  || this.selectedChanel   || this.selectedCity )
+        this.allData = this.filterData || this.filterDataClone;
 
         else
         this.allData=this.allDataClone
