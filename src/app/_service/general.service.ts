@@ -126,6 +126,7 @@ isUserLoginIn(){
         channel_name:'',
         asset_name:'',
         image_type:'',
+        userId:this.user
         
     }
 

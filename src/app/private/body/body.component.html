@@ -151,20 +151,23 @@
                         <p hidden>{{product.shopName}}</p>
                         <!-- (click)="getShop(product) -->
                         <!-- [routerLink]="['/home/shop',1]" -->
-                        <mat-card class="example-card">
-                            <mat-card-header class=" deta mb-1" title="click to view shop details" (click)="getShop(product)">
+                        <mat-card class=" main example-card">
+                            <mat-card-header class="  mb-1" title="click to view shop details" (click)="getShop(product)">
 
                                 <div mat-card-avatar class="example-header-image">
                                     <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                                 </div>
-                                <mat-card-title style="word-wrap: break-word;">{{getCategoryName(product) | slice:0:14 }} ({{product.imageType}}) </mat-card-title>
+                                <mat-card-title style="word-wrap: break-word;">{{getCategoryName(product) | slice:0:14 }}
+
+                                    <!-- ({{product.imageType}})  -->
+                                </mat-card-title>
                                 <mat-card-subtitle>
                                     {{product.shopName | titlecase}}
                                 </mat-card-subtitle>
                             </mat-card-header>
                             <img class="small" (click)="getAlert(product)" title="click to view large image" *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
                             <img class="small" (click)="getAlert(product)" title="click to view large image" *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found" #noImageFound>
-                            <mat-card-content class="deta" (click)="getShop(product)" style="cursor:pointer" title="click to view shop details">
+                            <mat-card-content (click)="getShop(product)" style="cursor:pointer" title="click to view shop details">
                                 <table>
                                     <tr>
                                         <th>Channel:</th>

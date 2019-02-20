@@ -27,6 +27,11 @@ cdk-virtual-scroll-viewport>div.cardItem {
     height: 190px !important;
 }
 
+mat-card.main:hover {
+    cursor: pointer;
+    background-color: #b1dcfc;
+}
+
 .body {
     /* background-image: url("../../../assets/images/bg.png") ; */
     /* background-color: #F8F9FA; */

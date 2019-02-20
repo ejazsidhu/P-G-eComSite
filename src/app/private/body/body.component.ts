@@ -264,7 +264,7 @@ export class BodyComponent implements OnInit {
 
     else {
       this.filterData = this.allData.filter(d => d.zone == this.selectedZone.title);
-      this.filterData || this.filterDataClone = this.filterData;
+      this.filterDataClone = this.filterData;
       
     }
 
