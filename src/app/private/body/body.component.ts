@@ -460,22 +460,29 @@ export class BodyComponent implements OnInit {
 
   getSuperSearch(search:string){
     console.log(search);
-    
-    if(search.length>1){
-    this.loadingData=true;
 
-      this.generalService.getSuperSearch(search).subscribe(data=>{
-        console.log('search date',data)
-        this.allData=data;
-        this.loadingData=false;
-      },error=>{});
-    }
-    else if(search.length<=1){
-      this.allData=this.allDataClone;
+    if(search==''&& this.filterData)
+    this.allData=this.filterData;
 
-    }
-   
+    else
+    this.allData=this.allDataClone;
   }
+    
+    // if(search.length>1){
+    // this.loadingData=true;
+
+    //   this.generalService.getSuperSearch(search).subscribe(data=>{
+    //     console.log('search date',data)
+    //     this.allData=data;
+    //     this.loadingData=false;
+    //   },error=>{});
+    // }
+    // else if(search.length<=1){
+    //   this.allData=this.allDataClone;
+
+    // }
+   
+  // }
 
   clearFilter(filter: string) {
     debugger
