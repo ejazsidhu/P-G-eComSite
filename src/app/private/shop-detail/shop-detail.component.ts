@@ -27,7 +27,7 @@ export class ShopDetailComponent implements OnInit {
 
     this.allDataSelectedShop=JSON.parse(localStorage.getItem('allDataSelectedShop'));
     this.selelctedShop=JSON.parse(localStorage.getItem('selelctedShop'));
-    console.log(this.selelctedShop)
+    console.log(this.allDataSelectedShop)
     this.route.params.subscribe(p=>{
       let id=+p['id'];
     console.log(id)
@@ -54,8 +54,11 @@ export class ShopDetailComponent implements OnInit {
   getDetailProdutsForShop(shopId) {
     console.log('selected shopId ',shopId)
 
+   let survayId= this.getMinimumSurveyId(this.allDataSelectedShop);
+   debugger
+
     this.loadingData=true;
-    this.generalService.getDetailDataForShop(shopId).subscribe(data => {
+    this.generalService.getDetailDataForShop(shopId,survayId).subscribe(data => {
       console.log('selected data ',data)
 
       this.allDataSelectedShop = [];
@@ -70,6 +73,23 @@ export class ShopDetailComponent implements OnInit {
     }, error => {
 
     })
+  }
+
+
+  getMinimumSurveyId(data){
+    debugger
+    let list:any=[];
+    data.forEach(e => {
+      list.push(e.surveyId);
+      
+    });
+
+    let d:any=(new Set(list))
+    console.log("filter channels",d.length);
+     let minNumber=Math.min.apply(null, d)
+
+    return +minNumber;
+      
   }
   showProductDetailModal(): void {
     this.productDetailModal.show();

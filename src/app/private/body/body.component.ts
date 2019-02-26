@@ -44,7 +44,7 @@ export class BodyComponent implements OnInit {
   myMessage: any;
   zones: any = [];
   selectedZone: any = {};
-  loadingData = true;
+  loadingData :boolean;
   regions: any = [];
   selectedRegion: any = {};
   cities: any = []
@@ -271,6 +271,8 @@ export class BodyComponent implements OnInit {
 
     this.allData = this.filterData;
     this.loadingData = false;
+    this.getUniqueChanelList(this.allData)
+
   }
 
   getCategoryName(product) {
@@ -288,7 +290,7 @@ export class BodyComponent implements OnInit {
     this.generalService.getCities(this.selectedRegion.id).subscribe(data => {
       this.cities = data[0];
       // console.log('cities list', data);
-      this.chanels = data[1];
+      // this.chanels = data[1];
       // this.filterAllData();
 
     }, error => {
@@ -306,7 +308,10 @@ export class BodyComponent implements OnInit {
 
 
     this.allData = this.filterData;
+    
     this.loadingData = false;
+    this.getUniqueChanelList(this.allData)
+
 
   }
 
@@ -326,6 +331,8 @@ export class BodyComponent implements OnInit {
 
     this.allData = this.filterData;
     this.loadingData = false;
+    this.getUniqueChanelList(this.allData)
+
 
   }
 
@@ -348,6 +355,7 @@ export class BodyComponent implements OnInit {
       this.filterDataClone = this.filterData;
     }
     this.allData = this.filterData;
+    this.getUniqueChanelList(this.allData)
 
 
   }
@@ -381,6 +389,7 @@ export class BodyComponent implements OnInit {
   }
 
   getData(range) {
+    this.loadingData=true;
     this.selectedCity = {};
     this.selectedRegion = {};
     this.selectedCategory = [];
@@ -390,6 +399,7 @@ export class BodyComponent implements OnInit {
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData =data;
       this.allDataClone = this.allData.slice();
+      this.getUniqueChanelList(this.allDataClone)
       console.log(this.allData[0]);
       if (this.allData.length == 0) {
         this.successTrigger = true;
@@ -397,10 +407,12 @@ export class BodyComponent implements OnInit {
 
       }
       this.loading = false;
-      setTimeout(() => {
-        this.loadingData = false;
+      this.loadingData = false;
 
-      }, 5000);
+      // setTimeout(() => {
+      //   this.loadingData = false;
+
+      // }, 5000);
 
     }, error => {
       // console.log(error);
@@ -458,31 +470,31 @@ export class BodyComponent implements OnInit {
     })
   }
 
-  getSuperSearch(search:string){
-    console.log(search);
+  getSuperSearch(search){
+    console.log(search.keyCode);
 
     if(search==''&& this.filterData)
     this.allData=this.filterData;
 
     else
     this.allData=this.allDataClone;
-  }
+  
     
-    // if(search.length>1){
-    // this.loadingData=true;
+    if(this.searchFilter.length>1){
+    this.loadingData=true;
 
-    //   this.generalService.getSuperSearch(search).subscribe(data=>{
-    //     console.log('search date',data)
-    //     this.allData=data;
-    //     this.loadingData=false;
-    //   },error=>{});
-    // }
-    // else if(search.length<=1){
-    //   this.allData=this.allDataClone;
+      this.generalService.getSuperSearch(this.searchFilter).subscribe(data=>{
+        console.log('search date',data)
+        this.allData=data;
+        this.loadingData=false;
+      },error=>{});
+    }
+    else if(search.length<=1){
+      this.allData=this.allDataClone;
 
-    // }
+    }
    
-  // }
+  }
 
   clearFilter(filter: string) {
     debugger
@@ -544,5 +556,20 @@ export class BodyComponent implements OnInit {
     }
 
   }
+
+  getUniqueChanelList(data:any){
+    let list:any=[];
+    data.forEach(e => {
+      list.push(e.channelName);
+      
+    });
+
+    let d=(new Set(list))
+    console.log("filter channels",d);
+    this.chanels=[];
+    this.chanels=d;
+
+  }
+
 
 }

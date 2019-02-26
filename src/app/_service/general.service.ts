@@ -115,11 +115,11 @@ isUserLoginIn(){
 
   }
 
-  getDetailDataForShop(shopId:any){
+  getDetailDataForShop(shopId:any,survayId?){
 
     let obj={      
         shop_id:shopId,
-        survey_id:-1,
+        survey_id: survayId || -1,
         zone:'',
         region:'',
         city:'',
@@ -137,6 +137,7 @@ isUserLoginIn(){
     );
 
   }
+
 
   getSuperSearch(search:String){
 
