@@ -61,6 +61,7 @@ export class BodyComponent implements OnInit {
   channelName: string='';
   filterDataClone: any[]=[];
   user:any
+  errorMessage: string;
 
   //#endregion
 
@@ -113,14 +114,21 @@ export class BodyComponent implements OnInit {
     console.log("update range", this.range);
     var s = moment(this.range.fromDate).format('YYYY-MM-DD');
     var e = moment(this.range.toDate).format('YYYY-MM-DD');
+    var maxDate=moment(this.range.fromDate).add(6,'days').format('YYYY-MM-DD');
+    console.log('max Date', maxDate);
 
     this.currentRange = JSON.stringify({ startDate: s, endDate: e,userId:this.user });
-    console.log('contructor date currentRange', this.currentRange);
-    if (s <= e) {
+    if (s <= e && e<=maxDate) {
       this.getData(this.currentRange);
     }
 
     else {
+
+      this.errorMessage='Start-date can not be greater than end-date';
+
+      if(e>maxDate)
+      this.errorMessage='Only 7 days range is allowed';
+
       this.wrongRange = true;
 
       setTimeout(() => {
@@ -394,7 +402,8 @@ export class BodyComponent implements OnInit {
     this.selectedRegion = {};
     this.selectedCategory = [];
     this.selectedZone = {};
-    this.loadingData=true;
+   this.allData=[];
+   this.chanels=[];
 
     this.generalService.getDataByDateRange(range).subscribe(data => {
       this.allData =data;
