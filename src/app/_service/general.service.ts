@@ -70,6 +70,15 @@ export class GeneralService {
   }
 
 
+  public getSingleShop(obj: any) {
+    let url = this.ip + 'singleShop-images';
+    let httpOption = this.headerCTJson();
+    const option = new RequestOptions({ headers: httpOption });
+    return this.httpClient.post(url, obj);
+
+
+  }
+
   login(cradentials: any) {
     // console.log(cradentials)
 

@@ -15,6 +15,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ShopDetailComponent } from './private/shop-detail/shop-detail.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { SingleShopComponent } from './private/single-shop/single-shop.component';
 
 
 BrowserModule
@@ -23,7 +24,8 @@ BrowserModule
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    ShopDetailComponent
+    ShopDetailComponent,
+    SingleShopComponent
     
   ],
   imports: [
