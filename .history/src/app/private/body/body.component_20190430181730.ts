@@ -381,6 +381,7 @@ export class BodyComponent implements OnInit {
 
   getZoneList() {
     this.generalService.getZone().subscribe((data: any) => {
+      debugger
        console.log('zone list', data)
       this.zones = data.zoneList;
     }, error => {
@@ -506,6 +507,7 @@ export class BodyComponent implements OnInit {
   }
 
   clearFilter(filter: string) {
+    debugger
 
     if (filter == 'all' || filter == 'selectedZone') {
 

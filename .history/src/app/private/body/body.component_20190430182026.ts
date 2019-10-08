@@ -506,6 +506,7 @@ export class BodyComponent implements OnInit {
   }
 
   clearFilter(filter: string) {
+    debugger
 
     if (filter == 'all' || filter == 'selectedZone') {
 

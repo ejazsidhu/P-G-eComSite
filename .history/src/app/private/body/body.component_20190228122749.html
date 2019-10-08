@@ -129,15 +129,15 @@
 
     <div class="row">
 
-        <!-- <div class="gallery js-flickity" *ngFor="let c of chanels">
+        <div class="gallery js-flickity" *ngFor="let c of chanels">
             <div class="gallery-cell">{{c}}</div>
-            <div class="gallery-cell"></div>
+            <!-- <div class="gallery-cell"></div>
                     <div class="gallery-cell"></div>
                     <div class="gallery-cell"></div>
                     <div class="gallery-cell"></div>
                     <div class="gallery-cell"></div>
-                    <div class="gallery-cell"></div>
-        </div> -->
+                    <div class="gallery-cell"></div> -->
+        </div>
 
         <div role="group" aria-label="Basic example" *ngFor="let c of chanels">
             <button type="button" class="btn btn-primary ml-2 mt-2" (click)="getAllDataClassification(c)">{{c}}</button>
