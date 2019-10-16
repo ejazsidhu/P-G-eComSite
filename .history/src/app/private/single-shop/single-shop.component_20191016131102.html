@@ -42,10 +42,10 @@ margin: 20% 40%;
                         <!-- (click)="getShop(product) -->
                         <!-- [routerLink]="['/home/shop',1]" -->
                         <mat-card class=" main example-card">
-                            <mat-card-header class="  mb-1">
+                            <mat-card-header class="  mb-1" title="click to view shop details">
 
                                 <div mat-card-avatar class="example-header-image">
-                                    <img src="{{product?.shopImgURL}}" width="50" class="rounded-circle">
+                                    <img src="{{ip}}{{product.shopImgURL}}" width="50" class="rounded-circle">
                                 </div>
                                 <mat-card-title style="word-wrap: break-word;word-break: break-all">{{product?.assetName | slice:0:14 }}
 
@@ -55,22 +55,22 @@ margin: 20% 40%;
                                     {{product.shopName | titlecase}}
                                 </mat-card-subtitle>
                             </mat-card-header>
-                            <img class="small" (click)="getAlert(product)" title="click to view large image" *ngIf="product.assetImageURL;" mat-card-image src="{{product?.assetImageURL}}" alt="Product photo">
+                            <img class="small" (click)="getAlert(product)" title="click to view large image" *ngIf="product.assetImageURL;" mat-card-image src="{{ip}}{{product.assetImageURL}}" alt="Product photo">
                             <img class="small" (click)="getAlert(product)" title="click to view large image" *ngIf="product.assetImageURL==null;" mat-card-image id="inf" src="assets/images/inf.png" alt="No image found" #noImageFound>
                             <mat-card-content style="cursor:pointer" title="click to view shop details">
                                 <table>
                                     <tr>
                                         <th>Channel:</th>
-                                        <td>{{product?.channelName}}</td>
+                                        <td>{{product.channelName}}</td>
                                     </tr>
 
                                     <tr *ngFor="let d of product.assetItemList;let i=index">
-                                        <th *ngIf="i!=0">{{d?.heading}}:</th>
-                                        <td *ngIf="i!=0">{{d?.value}}</td>
+                                        <th *ngIf="i!=0">{{d.heading}}:</th>
+                                        <td *ngIf="i!=0">{{d.value}}</td>
                                     </tr>
                                     <tr>
                                         <th>Address:</th>
-                                        <td style="word-wrap: break-word;word-break: break-all">{{product?.address}}</td>
+                                        <td style="word-wrap: break-word;word-break: break-all">{{product.address}}</td>
                                     </tr>
                                 </table>
                             </mat-card-content>
@@ -95,7 +95,7 @@ margin: 20% 40%;
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="dialog-child-name" class="modal-title pull-left">Product Name:{{selectedProduct?.assetName}} Store:{{selectedProduct?.shopName}}
+                <h4 id="dialog-child-name" class="modal-title pull-left">Product Name:{{getCategoryName(selectedProduct)}} Store:{{selectedProduct.shopName}}
                     <i class="fa fa-circle-o-notch fa-spin " style="color:lightskyblue" *ngIf="imageLoading"></i>
                 </h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="hideProductDetailModal()">
@@ -106,7 +106,7 @@ margin: 20% 40%;
                 <div>
 
 
-                    <img src="{{selectedProduct?.assetFullImg}}" alt="" style=" width: 100%; height: 500px; ">
+                    <img src="{{selectedProduct.assetFullImg}}" alt="" style=" width: 100%; height: 500px; ">
 
 
 

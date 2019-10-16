@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { GeneralService } from "src/app/_service/general.service";
-import { ModalDirective } from "ngx-bootstrap";
 
 @Component({
   selector: "app-single-shop",
@@ -11,11 +10,6 @@ import { ModalDirective } from "ngx-bootstrap";
 export class SingleShopComponent implements OnInit {
   selelctedShop: any = {};
   loadingData = true;
-  products: any
-  @ViewChild('productDetailModal') productDetailModal: ModalDirective;
-  selectedProduct: any;
-  imageLoading: boolean;
-  ;
   constructor(
     private generalService: GeneralService,
     private acRouter: ActivatedRoute
@@ -39,28 +33,7 @@ export class SingleShopComponent implements OnInit {
     this.generalService.getSingleShop(obj).subscribe((data: any) => {
       console.log(data);
       this.loadingData=false;
-      this.selelctedShop=data[0];
-      this.products=data
+      this.selelctedShop=data;
     });
   }
-
-  getAlert(product) {
-    this.selectedProduct = product;
-    this.showProductDetailModal();
-    this.imageLoading=true;
-    setTimeout(() => {
-
-      this.imageLoading=false;
-      
-    }, 2000);
-  }
-
-  showProductDetailModal(): void {
-    this.productDetailModal.show();
-  }
-
-  hideProductDetailModal(): void {
-    this.productDetailModal.hide();
-  }
-
 }

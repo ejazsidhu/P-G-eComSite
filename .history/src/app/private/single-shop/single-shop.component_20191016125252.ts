@@ -11,7 +11,7 @@ import { ModalDirective } from "ngx-bootstrap";
 export class SingleShopComponent implements OnInit {
   selelctedShop: any = {};
   loadingData = true;
-  products: any
+  product: any
   @ViewChild('productDetailModal') productDetailModal: ModalDirective;
   selectedProduct: any;
   imageLoading: boolean;
@@ -40,7 +40,7 @@ export class SingleShopComponent implements OnInit {
       console.log(data);
       this.loadingData=false;
       this.selelctedShop=data[0];
-      this.products=data
+      this.product=this.selelctedShop
     });
   }
 

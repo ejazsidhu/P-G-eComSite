@@ -42,7 +42,7 @@ margin: 20% 40%;
                         <!-- (click)="getShop(product) -->
                         <!-- [routerLink]="['/home/shop',1]" -->
                         <mat-card class=" main example-card">
-                            <mat-card-header class="  mb-1">
+                            <mat-card-header class="  mb-1" title="click to view shop details">
 
                                 <div mat-card-avatar class="example-header-image">
                                     <img src="{{product?.shopImgURL}}" width="50" class="rounded-circle">
@@ -106,7 +106,7 @@ margin: 20% 40%;
                 <div>
 
 
-                    <img src="{{selectedProduct?.assetFullImg}}" alt="" style=" width: 100%; height: 500px; ">
+                    <img src="{{selectedProduct.assetFullImg}}" alt="" style=" width: 100%; height: 500px; ">
 
 
 
